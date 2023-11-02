@@ -1,7 +1,7 @@
 name: Documentation
 description: Report missing, incorrect or improved documentation.
 title: "[DOC] "
-labels: Docs
+labels: docs
 
 body:
   - type: checkboxes
