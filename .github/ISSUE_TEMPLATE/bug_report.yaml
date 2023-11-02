@@ -1,0 +1,60 @@
+name: Bug Report
+description: Report incorrect behavior in the bioScience library
+title: "[BUG] "
+labels: [Bug, Needs Triage]
+
+body:
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: bioScience version checks
+      options:
+        - label: >
+            I have checked that this issue has not already been reported.
+          required: true
+        - label: >
+            I have confirmed this bug exists on the
+            [latest version](https://bioscience.readthedocs.io/en/latest/release.html) of bioScience.
+          required: true
+        - label: >
+            I have confirmed this bug exists on the
+            [main branch](https://github.com/aureliolfdez/bioscience/issues) of bioScience.
+  - type: textarea
+    id: example
+    attributes:
+      label: Reproducible Example
+      description: >
+        Provide a minimal, copy-pastable example.
+      placeholder: >
+        import bioscience as bs
+        listModels = bs.bibit(dataset, cMnr=2, cMnc=2, mode=1, debug = True)
+        ...
+      render: python
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Issue Description
+      description: >
+        Please provide a description of the issue shown in the reproducible example.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: >
+        Please describe or show a code example of the expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: version
+    attributes:
+      label: Installed Versions
+      description: >
+        Please add your bioScience version.
+      value: >
+        Replace this line with your bioScience version.
+    validations:
+      required: true
