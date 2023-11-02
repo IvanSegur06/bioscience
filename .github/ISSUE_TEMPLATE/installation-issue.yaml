@@ -1,7 +1,7 @@
 name: Installation Issue
 description: Report issues installing the bioScience library on your system
 title: "[BLD] "
-labels: [installation, build]
+labels: [install, build]
 
 body:
   - type: checkboxes
