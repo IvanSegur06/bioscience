@@ -1,7 +1,7 @@
 name: Performance Issue
 description: Report slow performance or memory issues when running bioScience
 title: "[PER] "
-labels: Performance
+labels: performance
 
 body:
   - type: checkboxes
