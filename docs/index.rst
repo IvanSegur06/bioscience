@@ -3,7 +3,7 @@ bioScience documentation
 
 **Useful links:**
 
-.. image:: https://img.shields.io/badge/pypi-v0.0.1-brightgreen
+.. image:: https://img.shields.io/badge/pypi-v0.1.0-brightgreen
    :target: https://pypi.org/project/bioscience/
    :alt: PyPI version
 
