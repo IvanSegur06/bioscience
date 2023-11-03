@@ -11,7 +11,7 @@ import bioscience._dependencies as dependencies
 this_directory = path.abspath(path.dirname(__file__))
 
 DISTNAME = "bioscience"
-VERSION = "0.0.1"
+VERSION = "0.1.0"
 AUTHOR = "Aurelio Lopez-Fernandez"
 AUTHOR_EMAIL = "alopfer1@upo.es"
 DESCRIPTION="bioScience: A new Python science library for High-Performance Computing Bioinformatics Analytics"
@@ -97,7 +97,6 @@ def setup_package():
         ], 
         cmdclass=cmdclass, 
         python_requires=python_requires,
-        #packages=['bioscience'],
         packages=find_packages(),
         install_requires=dependencies.tag_to_packages["install"],
         keywords=['python', 'data-science', 'data-mining', 'bioinformatics','high-performance-computing','data-analysis'],        
