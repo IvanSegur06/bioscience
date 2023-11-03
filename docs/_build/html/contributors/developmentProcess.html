@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Development Process &mdash; bioscience 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="About us" href="about.html" />
+    <link rel="prev" title="Contributing to bioScience" href="contributing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            bioscience
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../gettingStarted/whatis.html">What is bioScience?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingStarted/install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingStarted/quickstart.html">bioScience quickstart</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/load.html">Load dataset</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/preprocess.html">Pre-processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/dataMining.html">Data mining</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userGuide/results.html">Results</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/api.html">API reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributor's Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to bioScience</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development Process</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#git-and-github">Git and GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-fork-of-bioscience">Create a fork of bioScience</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-feature-branch-on-github">Create a feature branch on GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#making-code-changes">Making code changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pushing-your-code-changes">Pushing your code changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#making-a-pull-request-on-github">Making a pull request on GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#updating-your-pull-request">Updating your pull request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#updating-the-development-environment">Updating the development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tips-for-a-successfull-pull-request">Tips for a successfull pull request</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release.html">Release History</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">bioscience</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Development Process</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/contributors/developmentProcess.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="development-process">
+<h1>Development Process<a class="headerlink" href="#development-process" title="Permalink to this headline"></a></h1>
+<section id="git-and-github">
+<h2>Git and GitHub<a class="headerlink" href="#git-and-github" title="Permalink to this headline"></a></h2>
+<p>bioScience is hosted on GitHub, and in order to contribute, you must create a <a class="reference external" href="https://github.com/signup/free">free GitHub account</a>. <a class="reference external" href="https://git-scm.com/">Git</a> is used for version control to enable multiple people to collaborate on a project. If you are unfamiliar with Git, you can consult the <a class="reference external" href="https://git-scm.com/doc">Git documentation</a> to learn more.</p>
+<p>In addition, the project adheres to a forking protocol that is described in greater detail on this page, in which contributors fork the repository, make modifications, and then create a pull request. Please read and adhere to all the instructions in this manual.</p>
+<p>If you are unfamiliar with contributing to projects on GitHub through forking, consult the GitHub documentation for contributing to projects. GitHub provides a short tutorial using a test repository that may help you become more familiar with forking a repository, cloning a fork, creating a feature branch, pushing changes and making pull requests. The following resources can assist you in learning more about forking and pull requests on GitHub:</p>
+<ul class="simple">
+<li><p>the <a class="reference external" href="https://docs.github.com/en/get-started/quickstart/fork-a-repo">GitHub documentation for forking a repo</a>.</p></li>
+<li><p>the <a class="reference external" href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests">documentation on GitHub for collaborating on merge requests</a>.</p></li>
+<li><p>the <a class="reference external" href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks">documentation for working with variants on GitHub</a>.</p></li>
+</ul>
+<p>There are <a class="reference external" href="https://docs.github.com/en/get-started/quickstart/set-up-git">instructions on GitHub</a> for installing git, configuring SSH keys, and configuring git. Before you can work seamlessly between your local repository and GitHub, you must perform these procedures.</p>
+</section>
+<section id="create-a-fork-of-bioscience">
+<h2>Create a fork of bioScience<a class="headerlink" href="#create-a-fork-of-bioscience" title="Permalink to this headline"></a></h2>
+<p>To modify the code, you will need your own copy of bioScience (also known as a fork). Visit the page for the <a class="reference external" href="https://github.com/aureliolfdez/bioscience">bioScience project</a> and click the <code class="docutils literal notranslate"><span class="pre">Fork</span></code> button. Before selecting <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">Fork</span></code>, please deselect the option to reproduce only the main branch. You will clone your machine’s fork.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/your-user-name/bioscience.git<span class="w"> </span>bioscience-yourname
+<span class="nb">cd</span><span class="w"> </span>bioscience-yourname
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/aureliolfdez/bioscience.git
+git<span class="w"> </span>fetch<span class="w"> </span>upstream
+</pre></div>
+</div>
+<p>This creates the directory <code class="docutils literal notranslate"><span class="pre">bioscience-yourname</span></code> and connects your repository to the upstream (main project) bioScience repository.</p>
+</section>
+<section id="create-a-feature-branch-on-github">
+<h2>Create a feature branch on GitHub<a class="headerlink" href="#create-a-feature-branch-on-github" title="Permalink to this headline"></a></h2>
+<p>Your local <code class="docutils literal notranslate"><span class="pre">main</span></code> branch should always reflect the current state of bioScience repository. First ensure it’s up-to-date with the main bioScience repository.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>pull<span class="w"> </span>upstream<span class="w"> </span>main<span class="w"> </span>--ff-only
+</pre></div>
+</div>
+<p>Then, create a feature branch for making your changes. For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>my-feature-branch
+</pre></div>
+</div>
+<p>This changes your working branch from <code class="docutils literal notranslate"><span class="pre">main```to</span> <span class="pre">the</span> <span class="pre">``my-feature-branch</span></code> branch. Keep any changes in this branch specific to one bug or new feature so it is clear what the branch brings to library. You can have many feature branches and switch in between them using the <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span></code> command.</p>
+<p>When you want to update the feature branch with changes in main after you created the branch, check the section <a class="reference internal" href="#updatingpull"><span class="std std-ref">Updating your pull request</span></a>.</p>
+</section>
+<section id="making-code-changes">
+<h2>Making code changes<a class="headerlink" href="#making-code-changes" title="Permalink to this headline"></a></h2>
+<p>For files you intended to modify or add, run.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>&lt;file&gt;
+</pre></div>
+</div>
+<p>Once you have made code changes, you can see all the changes you’ve currently made by running.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>status
+</pre></div>
+</div>
+<p>Finally, commit your changes to your local repository with an explanatory commit message</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;commit message&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="pushing-your-code-changes">
+<h2>Pushing your code changes<a class="headerlink" href="#pushing-your-code-changes" title="Permalink to this headline"></a></h2>
+<p>When you want your changes to appear publicly on your GitHub page, push your forked feature branch’s commits:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>my-feature-branch
+</pre></div>
+</div>
+<p>Here <code class="docutils literal notranslate"><span class="pre">origin</span></code> is the default name given to your remote repository on GitHub. You can see the remote repositories</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>remote<span class="w"> </span>-v
+</pre></div>
+</div>
+<p>If you added the upstream repository as described above you will see something like</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>origin<span class="w">  </span>git@github.com:yourname/bioscience.git<span class="w"> </span><span class="o">(</span>fetch<span class="o">)</span>
+origin<span class="w">  </span>git@github.com:yourname/bioscience.git<span class="w"> </span><span class="o">(</span>push<span class="o">)</span>
+upstream<span class="w"> </span>git://github.com/aureliolfdez/bioscience.git<span class="w"> </span><span class="o">(</span>fetch<span class="o">)</span>
+upstream<span class="w"> </span>git://github.com/aureliolfdez/bioscience.git<span class="w"> </span><span class="o">(</span>push<span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="making-a-pull-request-on-github">
+<span id="makingpull"></span><h2>Making a pull request on GitHub<a class="headerlink" href="#making-a-pull-request-on-github" title="Permalink to this headline"></a></h2>
+<p>One you have finished your code changes, you are ready to make a pull request. A pull request is how code from your local repository becomes available to the GitHub community to review and merged into project to appear the in the next release. To submit a pull request:</p>
+<ol class="arabic simple">
+<li><p>Navigate to your repository on GitHub.</p></li>
+<li><p>Click on the <code class="docutils literal notranslate"><span class="pre">Compare</span> <span class="pre">&amp;</span> <span class="pre">pull</span> <span class="pre">request</span></code> button.</p></li>
+<li><p>You can then click on <code class="docutils literal notranslate"><span class="pre">Commits</span></code> and <code class="docutils literal notranslate"><span class="pre">Files</span> <span class="pre">Changed</span></code> to make sure everything looks okay one last time.</p></li>
+<li><p>Write a descriptive title that includes prefixes. bioScience uses a convention for title prefixes. Here are some common ones along with general guidelines for when to use them.</p></li>
+<li><p>Write a description of your changes in the <code class="docutils literal notranslate"><span class="pre">Preview</span> <span class="pre">Discussion</span></code> tab.</p></li>
+<li><p>Click on the <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">pull</span> <span class="pre">request</span></code> button.</p></li>
+</ol>
+<p>This request then goes to the repository maintainers, and they will review the code.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Prefixes to write a descriptive title:</p>
+<ul class="simple">
+<li><p><strong>BUG:</strong> Bug fix.</p></li>
+<li><p><strong>BLD:</strong> Updates to the build process/scripts.</p></li>
+<li><p><strong>DOC:</strong> Additions/updates to documentation.</p></li>
+<li><p><strong>FUN:</strong> New functionality.</p></li>
+<li><p><strong>HPC:</strong> Performance improvement (High-Performance Computing)</p></li>
+<li><p><strong>PER:</strong> Performance issues.</p></li>
+<li><p><strong>QUE:</strong> Submit question.</p></li>
+</ul>
+</aside>
+</section>
+<section id="updating-your-pull-request">
+<span id="updatingpull"></span><h2>Updating your pull request<a class="headerlink" href="#updating-your-pull-request" title="Permalink to this headline"></a></h2>
+<p>It is also important that updates in the bioScience main branch are reflected in your pull request. To update your feature branch with changes in the bioScience main branch, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>my-feature-branch
+git<span class="w"> </span>fetch<span class="w"> </span>upstream
+git<span class="w"> </span>merge<span class="w"> </span>upstream/main
+</pre></div>
+</div>
+<p>If there are no conflicts (or they could be fixed automatically), a file with a default commit message will open, and you can simply save and quit this file.</p>
+<p>If there are merge conflicts, you need to solve those conflicts. See for example at <a class="reference external" href="https://help.github.com/articles/resolving-a-merge-conflict-using-the-command-line/">https://help.github.com/articles/resolving-a-merge-conflict-using-the-command-line/</a> for an explanation on how to do this.</p>
+<p>Once the conflicts are resolved, run:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">-u</span></code> to stage any files you’ve updated;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code> to finish the merge.</p></li>
+</ol>
+<p>After the feature branch has been update locally, you can now update your pull request by pushing to the branch on GitHub:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>my-feature-branch
+</pre></div>
+</div>
+<p>Any <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> will automatically update your pull request with your branch’s changes.</p>
+</section>
+<section id="updating-the-development-environment">
+<h2>Updating the development environment<a class="headerlink" href="#updating-the-development-environment" title="Permalink to this headline"></a></h2>
+<p>It is essential to regularly update your local main branch with updates from the bioScience main branch and to update your development environment to reflect any changes to the packages used during development.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>merge<span class="w"> </span>upstream/main
+<span class="c1"># activate the virtual environment based on your platform</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="tips-for-a-successfull-pull-request">
+<span id="successfullpull"></span><h2>Tips for a successfull pull request<a class="headerlink" href="#tips-for-a-successfull-pull-request" title="Permalink to this headline"></a></h2>
+<p>If you have made it to the <a class="reference internal" href="#makingpull"><span class="std std-ref">Making a pull request on GitHub</span></a>, the core team may take a look. To improve the chances of your pull request being reviewed, you should:</p>
+<ul class="simple">
+<li><p>Ensure you have appropriate tests. These should be the first part of any pull request.</p></li>
+<li><p>Keep your pull requests as simple as possible. Larger pull requests take longer to review.</p></li>
+<li><p>Ensure that continuous integration is in a green state. Reviewers may not even look otherwise.</p></li>
+<li><p>Keep <a class="reference internal" href="#updatingpull"><span class="std std-ref">Updating your pull request</span></a>, either by request or every few days.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="contributing.html" class="btn btn-neutral float-left" title="Contributing to bioScience" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="about.html" class="btn btn-neutral float-right" title="About us" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, bioScience Core Development Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
