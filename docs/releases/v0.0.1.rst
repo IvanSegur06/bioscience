@@ -1,0 +1,9 @@
+Version 0.0.1 and earlier
+=========================
+
+Changelog
+---------
+
+Initialize the project by Aurelio Lopez-Fernandez et al. in Nov. 2023.
+
+* v<0.0.1>, <03/11/2023> -- Initial release.
