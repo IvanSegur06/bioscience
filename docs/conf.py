@@ -9,12 +9,12 @@
 import os
 import sys
 from os.path import dirname, abspath
+import numpy
 
 sys.path.insert(0, abspath('..'))
 docs_dir = dirname(dirname(abspath(__file__)))
 
 version_path = os.path.join(docs_dir, 'bioscience', 'version.py')
-autodoc_mock_imports = ["_numpy"]
 exec(open(version_path).read())
 
 project = 'bioscience'
