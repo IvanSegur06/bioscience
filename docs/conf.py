@@ -9,7 +9,6 @@
 import os
 import sys
 from os.path import dirname, abspath
-import numpy
 
 sys.path.insert(0, abspath('..'))
 docs_dir = dirname(dirname(abspath(__file__)))
