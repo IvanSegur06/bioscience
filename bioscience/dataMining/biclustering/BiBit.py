@@ -205,63 +205,83 @@ def __bibitNumbaCpu(dataset, cMnr, cMnc, debug):
     warnings.filterwarnings("ignore", category=NumbaWarning)     
     set_num_threads(os.cpu_count())
     
-    patterns, ones_count = __getPatternsNumbaCpu(dataset.data, cMnc)
+    aResultCols = np.zeros((maxPatterns, dataset.data.shape[1]), dtype=np.uint64)
+    patFiltered = np.zeros(maxPatterns, dtype=np.longlong)
     
-    unique_patterns, unique_ones_count = __removeDuplicatePatternsNumbaCpu(patterns, ones_count)
+    __getPatternsNumbaCpu(dataset.data, cMnc, aResultCols, patFiltered)
+    patFiltered = patFiltered[patFiltered != 0]
     
-    biclusters = __generateBiclustersNumbaCpu(dataset.data, unique_patterns, unique_ones_count, cMnr)
+    patFiltered = __removeDuplicatePatternsSequential(aResultCols, patFiltered)
     
-    oBiBit = __storeResults(biclusters, cMnr)
+    biclusters = __generateBiclustersNumbaCpu(dataset.data, aResultCols, patFiltered)
+    
+    oBiBit = __storeResults(dataset, biclusters, aResultCols, patFiltered, cMnr, debug)
     
     fin = time.time()
     oBiBit.executionTime = round(fin - inicio,4)
-
+    
     return oBiBit
-    
-@njit(parallel=True)
-def __getPatternsNumbaCpu(data, cMnc):
-    
-    # Inicializa una matriz para almacenar los patrones
-    patterns = np.zeros((maxPatterns, data.shape[1]), dtype=np.uint64)
-    # Inicializa un array para almacenar la cantidad de unos en cada patrón
-    ones_count = np.zeros(maxPatterns, dtype=np.int64)
-
-    # Genera los patrones
-    for i in prange(data.shape[0]):
-        for j in prange(i + 1, data.shape[0]):
-            pattern = data[i] & data[j]
-            ones = np.sum(pattern)
-            if ones >= cMnc:
-                patterns[i * data.shape[0] + j] = pattern
-                ones_count[i * data.shape[0] + j] = ones
-
-    return patterns, ones_count
-
-def __removeDuplicatePatternsNumbaCpu(patterns, ones_count):
-    unique_patterns, indices = np.unique(patterns, axis=0, return_index=True)
-    unique_ones_count = ones_count[indices]
-    return unique_patterns, unique_ones_count
 
 @njit(parallel=True)
-def __generateBiclustersNumbaCpu(data, patterns, ones_count, cMnr):
-    maxBiclusters = patterns.shape[0]
+def __getPatternsNumbaCpu(data, cMnc, aResultCols, patFiltered):
+    
+    rows = data.shape[0]
+    idValidPattern = 0
+    for r1 in prange(rows):        
+        for r2 in prange(r1 + 1, rows):
+            idPattern = (rows - 1) * r1 - (r1 * (r1 - 1) // 2) + (r2 - r1 - 1)
+            totalOnes = 0
+            rAnd = data[r1] & data[r2]
+                        
+            totalOnes = 0
+            for n in rAnd:
+                count = 0
+                while n:
+                    count += n & 1
+                    n >>= 1
+                totalOnes += count
+
+            if(totalOnes >= cMnc):
+                aResultCols[idPattern] = rAnd                    
+                patFiltered[idPattern] = idPattern+1
+                                    
+@njit(parallel=True)
+def __generateBiclustersNumbaCpu(data, aResultCols, patFiltered):
+    maxBiclusters = len(patFiltered)
     biclusters = np.zeros((maxBiclusters, data.shape[0]), dtype=np.uint8)
-
     for i in prange(maxBiclusters):
-        if ones_count[i] > 0:
-            for j in prange(data.shape[0]):
-                if np.array_equal(data[j] & patterns[i], patterns[i]):
-                    biclusters[i, j] = 1
-
+        pat = patFiltered[i]-1
+        for j in prange(data.shape[0]):
+            if np.array_equal(data[j] & aResultCols[pat], aResultCols[pat]):
+                biclusters[i, j] = 1           
+                         
     return biclusters
 
-def __storeResults(biclusters, cMnr):
-    oBiBit = BiclusteringModel()  
-
-    for i in range(biclusters.shape[0]):
-        rows = np.nonzero(biclusters[i])[0]
-        if len(rows) >= cMnr:
-            oBiBit.results.add(Bicluster(rows))
+def __storeResults(dataset, biclusters, aResultCols, patFiltered, cMnr, debug):
+    oBiBit = BiclusteringModel()
+    
+    for i in range(len(patFiltered)):
+        pat = patFiltered[i]-1
+        rowsBiclusters = np.nonzero(biclusters[i])[0]        
+        if(len(rowsBiclusters) >= cMnr):
+            
+            if debug == False:         
+                vectorized_bin = np.vectorize(bin)
+                binaryReprArray = vectorized_bin(aResultCols[pat])
+                binaryReprArray = np.array(list(map(lambda s: s[2:], binaryReprArray)))
+                totalBits = sum(len(s) for s in binaryReprArray)
+                
+                # Get columns
+                zerosDifference = dataset.original.shape[1] - totalBits # Conseguir el número de 0s que faltan por completar a la izquierda
+                binaryReprArray = np.array([list(binary_string) for binary_string in binaryReprArray])
+                positionsCols = np.where(binaryReprArray == '1')[1]
+                positionsCols += zerosDifference
+                
+                # Add bicluster to model
+                oBiBit.results.add(Bicluster(rowsBiclusters, cols=positionsCols))
+            
+            else:
+                oBiBit.results.add(Bicluster(rowsBiclusters))
 
     return oBiBit
 
@@ -269,10 +289,10 @@ def __storeResults(biclusters, cMnr):
 # BiBit NUMBA GPU algorithm #
 #############################
 @cuda.jit
-def __getPatterns(maxPatterns, aResultCols, id, bicsPerGpuPrevious, mInputData, patFiltered, totalPatterns, patternsPerRun, iter, totalFor, mnc, numPatFiltered):
+def __getPatterns(maxPatterns, aResultCols, id, bicsPerGpuPrevious, mInputData, patFiltered, totalPatterns, patternsPerRun, iter, totalFor, mnc, numPatFiltered, maxThreadsPerBlock):
     idTh = cuda.blockIdx.x * cuda.blockDim.x + cuda.threadIdx.x
     pattern = np.longlong(idTh + (totalFor * (iter - 1)) + (id * bicsPerGpuPrevious) + totalPatterns)
-    patternCols = np.longlong(idTh + (totalFor * (iter - 1)))
+    patternCols = np.longlong(idTh + (totalFor * maxThreadsPerBlock * (iter - 1)))
     
     if patternCols < patternsPerRun and pattern < maxPatterns:
         r1 = 0
@@ -301,25 +321,26 @@ def __getPatterns(maxPatterns, aResultCols, id, bicsPerGpuPrevious, mInputData, 
 
             if totalOnes >= mnc:
                 current_val = cuda.atomic.add(numPatFiltered, 0, 1)
-                patFiltered[current_val] = patternCols                
+                patFiltered[current_val] = patternCols
     pass
 
 @cuda.jit
-def __generateBiclusters(aResultCols, mInputData, patFiltered, aResult, iter, totalFor, numPatFiltered):
-    patternArray = (cuda.blockIdx.x * cuda.blockDim.x + cuda.threadIdx.x + (totalFor * (iter - 1)))
+def __generateBiclusters(aResultCols, mInputData, patFiltered, aResult, iter, totalFor, numPatFiltered, maxThreadsPerBlock):
+    idTh = np.longlong(cuda.blockIdx.x * cuda.blockDim.x + cuda.threadIdx.x + (totalFor * maxThreadsPerBlock * (iter - 1)))
+    patternArray = idTh // rowsDataset
+    row = idTh % rowsDataset
     if patternArray < numPatFiltered:
-        pattern = patFiltered[patternArray]
-        for row in range(rowsDataset):
-            bEqual = True
-            for k in range(colsDataset):
-                rPattern = aResultCols[pattern][k]
-                if (mInputData[row][k] & rPattern) != rPattern:
-                    bEqual = False
+        pattern = patFiltered[patternArray]       
+        bEqual = True
+        for k in range(colsDataset):
+            rPattern = aResultCols[pattern][k]
+            if (mInputData[row][k] & rPattern) != rPattern:
+                bEqual = False
 
-            if bEqual:
-                aResult[pattern][row] = 1
-            else:
-                aResult[pattern][row] = 0
+        if bEqual:
+            aResult[pattern][row] = 1
+        else:
+            aResult[pattern][row] = 0
     pass
 
 def __prepareGpu1D(i, lNumber):
@@ -386,7 +407,6 @@ def __bibitNumbaGpu(dataset, cMnr, cMnc, deviceCount, debug):
         if deviceCount > 1 and maxPatterns % deviceCount != 0 and i == deviceCount - 1:
             patternsPerRun[i] += restBiclustersLastGpu
         
-        
     bicsPerGpuPrevious = 0 
     resultsQueue = queue.Queue()
     oBiBit = BiclusteringModel()        
@@ -397,19 +417,19 @@ def __bibitNumbaGpu(dataset, cMnr, cMnc, deviceCount, debug):
         gpuDevice = cuda.select_device(i)
         mInputData = cuda.to_device(dataset.data)
         if i > 0:
-            bicsPerGpuPrevious += chunks[i - 1] * patternsPerRun[i - 1]            
+            bicsPerGpuPrevious += np.longlong(chunks[i - 1] * patternsPerRun[i - 1])
         
         t = threading.Thread(target=threadsPerDevice_64, args=(resultsQueue, i, s[i], chunks[i], bicsPerGpuPrevious, patternsPerRun[i], mInputData, m, cMnr, cMnc, debug))
         t.start()
         threads.append(t)            
     
     for th in threads:
-        th.join() 
-    fin = time.time()
+        th.join()
     
-    resultsBiclusters = [resultsQueue.get() for _ in range(deviceCount)]
-    for oModelo in resultsBiclusters:
-        oBiBit.results.update(oModelo.results)    
+    fin = time.time()
+    while not resultsQueue.empty():
+        oModelo = resultsQueue.get()
+        oBiBit.results = oBiBit.results.union(oModelo.results)
     
     oBiBit.executionTime = round(fin - inicio,4)
     return oBiBit
@@ -420,27 +440,25 @@ def threadsPerDevice_64(resultsQueue, i, s, chunks, bicsPerGpuPrevious, patterns
     """
     gpuDevice = cuda.select_device(i)
     totalPatterns = np.uint64(0)
-    totalBic = np.uint64(0)
     numPatFiltered = cuda.to_device(np.array([0], dtype=np.int64))
     
-    for largeScale in range(chunks):
-        inicio = time.time()
+    for largeScale in range(chunks):     
         aResultCols = cuda.to_device(np.zeros((patternsPerRun,colsDataset), dtype=np.uint64))            
-        patFiltered = cuda.to_device(np.full(patternsPerRun, -1, dtype=np.int64))
+        patFiltered = cuda.to_device(np.full((patternsPerRun), -1, dtype=np.int64))
         
         # 1) Generate total patterns
         __prepareGpu1D(i, patternsPerRun)
         if(patternsPerRun != 0):
             with s.auto_synchronize():
                 for it in range(1, maxIteratorGPU + 1):
-                    __getPatterns[maxBlocksPerGrid, maxThreadsPerBlock, s](maxPatterns, aResultCols, i, bicsPerGpuPrevious, mInputData, patFiltered, totalPatterns, patternsPerRun, it, maxThreadsPerBlock*maxBlocksPerGrid, cMnc, numPatFiltered)
-                __getPatterns[lastBlocksGrid, maxThreadsPerBlock, s](maxPatterns, aResultCols, i, bicsPerGpuPrevious, mInputData, patFiltered, totalPatterns, patternsPerRun, maxIteratorGPU+1, maxThreadsPerBlock*maxBlocksPerGrid, cMnc, numPatFiltered)
-        
-        # 2) Remove duplicate patterns
+                    __getPatterns[maxBlocksPerGrid, maxThreadsPerBlock, s](maxPatterns, aResultCols, i, bicsPerGpuPrevious, mInputData, patFiltered, totalPatterns, patternsPerRun, it, maxThreadsPerBlock*maxBlocksPerGrid, cMnc, numPatFiltered, maxThreadsPerBlock)
+                __getPatterns[lastBlocksGrid, maxThreadsPerBlock, s](maxPatterns, aResultCols, i, bicsPerGpuPrevious, mInputData, patFiltered, totalPatterns, patternsPerRun, maxIteratorGPU+1, maxThreadsPerBlock*maxBlocksPerGrid, cMnc, numPatFiltered, maxThreadsPerBlock)
+    
+        # 2) Remove duplicate patterns   
         cpuNumPatFiltered = numPatFiltered.copy_to_host()[0]
         aPatFilteredCpu = patFiltered.copy_to_host()
-        aResultColsCpu = aResultCols.copy_to_host()      
-                    
+        aResultColsCpu = aResultCols.copy_to_host()  
+        
         for iIndex in range(cpuNumPatFiltered):
             pat = aPatFilteredCpu[iIndex]
             ptr = aResultColsCpu[pat]
@@ -452,32 +470,30 @@ def threadsPerDevice_64(resultsQueue, i, s, chunks, bicsPerGpuPrevious, patterns
                 else:                        
                     aPatFilteredCpu[iIndex] = aPatFilteredCpu[cpuNumPatFiltered - 1]
                     aPatFilteredCpu[cpuNumPatFiltered - 1] = -1
-                    aPatFilteredCpu = aPatFilteredCpu[:-1]  # Eliminamos el último elemento
                     cpuNumPatFiltered -= 1
                     iIndex -= 1
         
-        del numPatFiltered            
-        numPatFiltered = cuda.to_device(np.array([cpuNumPatFiltered], dtype=np.int64))         
+        aPatFilteredCpu = aPatFilteredCpu[aPatFilteredCpu != -1]
         
         del patFiltered
         patFiltered = cuda.to_device(np.full(patternsPerRun, -1, dtype=np.uint64))
         patFiltered = cuda.to_device(aPatFilteredCpu)
-        
-        # 3) Generate biclusters   
+         
+        # 3) Generate biclusters
         aResult = cuda.to_device(np.full((patternsPerRun,rowsDataset), 0, dtype=np.uint8))
-        __prepareGpu1D(i, cpuNumPatFiltered)
+        __prepareGpu1D(i, cpuNumPatFiltered * rowsDataset)
         
         if(cpuNumPatFiltered != 0):
             with s.auto_synchronize():
                 for it in range(1, maxIteratorGPU + 1):
-                    __generateBiclusters[maxBlocksPerGrid, maxThreadsPerBlock,s](aResultCols, mInputData, patFiltered, aResult, it, maxBlocksPerGrid, cpuNumPatFiltered)
-                __generateBiclusters[lastBlocksGrid, maxThreadsPerBlock,s](aResultCols, mInputData, patFiltered, aResult, maxIteratorGPU+1, maxBlocksPerGrid, cpuNumPatFiltered)
+                    __generateBiclusters[maxBlocksPerGrid, maxThreadsPerBlock,s](aResultCols, mInputData, patFiltered, aResult, it, maxBlocksPerGrid, cpuNumPatFiltered, maxThreadsPerBlock)
+                __generateBiclusters[lastBlocksGrid, maxThreadsPerBlock,s](aResultCols, mInputData, patFiltered, aResult, maxIteratorGPU+1, maxBlocksPerGrid, cpuNumPatFiltered, maxThreadsPerBlock)
         
-        # 4) Save biclusters          
-        aResultCpu = aResult.copy_to_host()
-        oBiBit = BiclusteringModel()
-        for i in range(cpuNumPatFiltered):  
-            pattern = aPatFilteredCpu[i]
+        # 4) Save biclusters        
+        oBiBit = BiclusteringModel()    
+        aResultCpu = aResult.copy_to_host()        
+        for iIndex in range(cpuNumPatFiltered):  
+            pattern = aPatFilteredCpu[iIndex]
             aRows = np.where(aResultCpu[pattern] == 1)[0] # Rows of bicluster
             if(aRows.size >= cMnr):                    
                 if debug == False:
@@ -497,7 +513,7 @@ def threadsPerDevice_64(resultsQueue, i, s, chunks, bicsPerGpuPrevious, patterns
                             colsSaveBicluster -= len(binaryReprArray)
                             binaryReprArray = binaryReprArray.zfill(colsSaveBicluster+len(binaryReprArray))
                         
-                        positionsCols = [i for i, caracter in enumerate(binaryReprArray) if caracter == "1"]
+                        positionsCols = [iCont for iCont, caracter in enumerate(binaryReprArray) if caracter == "1"]
 
                         
                         if len(positionsCols) > 0:
@@ -511,7 +527,8 @@ def threadsPerDevice_64(resultsQueue, i, s, chunks, bicsPerGpuPrevious, patterns
                     # Add bicluster to model
                     oBiBit.results.add(Bicluster(aRows))
         
-        fin = time.time()
-        oBiBit.executionTime = round(fin - inicio,4)
-        
         resultsQueue.put(oBiBit)
+        
+        numPatFiltered[0] = 0
+        totalPatterns += patternsPerRun   
+        
