@@ -62,7 +62,7 @@ def load(path, separator = "\t", skipr = 0, naFilter = False, index_gene = -1, i
                 
             
             dataColumns = np.delete(dataColumns, np.arange(0, 1 + index_gene))         
-            return Dataset(dataset.astype(np.uint64), geneNames=geneNames, columnsNames=dataColumns, lengths=lengths)
+            return Dataset(dataset.astype(np.double), geneNames=geneNames, columnsNames=dataColumns, lengths=lengths)
         else:
             return None
 
@@ -82,8 +82,16 @@ def saveResultsIndex(path, models):
         for model in models:
             infoData = []
             for oBicluster in model.results:
-                rows = ','.join(str(int(row)) for row in oBicluster.rows)
-                cols = ','.join(str(int(col)) for col in oBicluster.cols)
+                if oBicluster.rows is not None:
+                    rows = ','.join(str(int(row)) for row in oBicluster.rows)
+                else:
+                    rows = ""
+                
+                if oBicluster.cols is not None:
+                    cols = ','.join(str(int(col)) for col in oBicluster.cols)
+                else:
+                    cols = ""
+                
                 infoData.append(rows + ';' + cols)
             
             df = pd.DataFrame(infoData, columns=['Data'])
@@ -119,15 +127,21 @@ def saveResults(path, models, data):
                     geneNames = data.geneNames
                     colNames = data.columnsNames
                 
-                if geneNames is not None:
-                    rows = ','.join(str(geneNames[int(row)]) for row in oBicluster.rows)
+                if oBicluster.rows is not None:
+                    if geneNames is not None:
+                        rows = ','.join(str(geneNames[int(row)]) for row in oBicluster.rows)
+                    else:
+                        rows = ','.join(str(row) for row in oBicluster.rows)
                 else:
-                    rows = ','.join(str(row) for row in oBicluster.rows)
+                    rows = ""
                 
-                if colNames is not None:
-                    cols = ','.join(str(colNames[int(col)]) for col in oBicluster.cols)
+                if oBicluster.cols is not None:
+                    if colNames is not None:
+                        cols = ','.join(str(colNames[int(col)]) for col in oBicluster.cols)
+                    else:
+                        cols = ','.join(str(int(col)) for col in oBicluster.cols)
                 else:
-                    cols = ','.join(str(int(col)) for col in oBicluster.cols)
+                    cols = ""
                 
                 infoBicluster = f"\nRESULT #{j} (ROWS: {rows}) - (COLS: {cols})\n"
                    
@@ -136,8 +150,9 @@ def saveResults(path, models, data):
                 else:
                     dataset = data.original
                 for oRow in oBicluster.rows:
-                    infoBicluster += ",".join(str(dataset[int(oRow)][int(oCol)]) for oCol in oBicluster.cols)
-                    infoBicluster += "\n"
+                    if oBicluster.cols is not None:
+                        infoBicluster += ",".join(str(dataset[int(oRow)][int(oCol)]) for oCol in oBicluster.cols)
+                        infoBicluster += "\n"
 
                 infoModel += infoBicluster
 

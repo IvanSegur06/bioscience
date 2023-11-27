@@ -29,6 +29,8 @@ def bibit(dataset, cMnr = 2, cMnc = 2, deviceCount = 1, mode = 1, debug = False)
     """
     listModels = set()
     if dataset is not None:
+        if dataset.data.dtype != "uint64":
+            dataset.data = dataset.data.astype(np.uint64)
         if isinstance(dataset, Dataset):
             oModel = process(dataset, cMnr, cMnc, deviceCount, mode, debug)
             listModels.add(oModel)
