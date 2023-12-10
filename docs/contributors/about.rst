@@ -15,6 +15,10 @@ Universidade Da Coruña: `Computer Architecture Group (GAC) <https://gac.udc.es/
 
 - Jorge González-Domínguez, Ph.D.
 
+`Nitte Meenakshi Institute of Technology <https://www.nmit.ac.in/electronic-and-comunication.php>`_
+
+- Parameshachari Bidare Divakarachari, Ph.D.
+
 Contributors Team
 ---------------------
 
