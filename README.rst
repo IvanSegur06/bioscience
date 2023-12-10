@@ -3,7 +3,7 @@ bioScience: A new Python science library for High-Performance Computing Bioinfor
 
 **Deployment & Documentation & Stats**
 
-.. image:: https://img.shields.io/badge/pypi-v0.1.1-brightgreen
+.. image:: https://img.shields.io/badge/pypi-v0.1.2-brightgreen
    :target: https://pypi.org/project/bioscience/
    :alt: PyPI version
 

@@ -4,5 +4,6 @@ Version 0.1.x
 Changelog
 ---------
 
+* v<0.1.2>, <10/12/2023> -- Solve biclustering issues and upload datasets examples.
 * v<0.1.1>, <27/11/2023> -- Solve biclustering and files issues.
 * v<0.1.0>, <03/11/2023> -- Stable release.

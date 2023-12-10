@@ -11,7 +11,7 @@ import bioscience._dependencies as dependencies
 this_directory = path.abspath(path.dirname(__file__))
 
 DISTNAME = "bioscience"
-VERSION = "0.1.1"
+VERSION = "0.1.2"
 AUTHOR = "Aurelio Lopez-Fernandez"
 AUTHOR_EMAIL = "alopfer1@upo.es"
 DESCRIPTION="bioScience: A new Python science library for High-Performance Computing Bioinformatics Analytics"
