@@ -29,7 +29,7 @@ demonstrates basic API functionality to generate results from the application of
       # RNA-Seq dataset load
       dataset = load(path="datasets/rnaseq.txt", index_gene=0, index_lengths=1 ,naFilter=True, head = 0)
 
-#. **Preprocessing:** In this phase, different methods for pre-processing are shown. They range from basic preprocessing methods such as discretisation, standardisation and normalisation among others to preprocessing methods used on RNA-Seq data. Finally, bioScience also has methods to binarise a gene expression dataset.
+#. **Preprocessing:** In this phase, different methods for pre-processing are shown. They range from basic preprocessing methods such as discretisation, standardisation, normalisation and handling outlier among others to preprocessing methods used on RNA-Seq data. Finally, bioScience also has methods to binarise a gene expression dataset.
 
    .. code-block:: python
 
@@ -38,6 +38,7 @@ demonstrates basic API functionality to generate results from the application of
       bs.standardize(dataset)
       bs.scale(dataset)
       bs.normalDistributionQuantile(dataset)
+      bs.outliers(dataset)
 
       # 2.2) RNA-Seq preprocessing
       bs.tpm(dataset)
@@ -88,7 +89,7 @@ demonstrates basic API functionality to generate results from the application of
       # RNA-Seq dataset load
       dataset = load(path="datasets/rnaseq.txt", index_gene=0, index_lengths=1 ,naFilter=True, head = 0)
 
-#. **Preprocessing:** In this phase, different methods for pre-processing are shown. They range from basic preprocessing methods such as discretisation, standardisation and normalisation among others to preprocessing methods used on RNA-Seq data. Finally, bioScience also has methods to binarise a gene expression dataset.
+#. **Preprocessing:** In this phase, different methods for pre-processing are shown. They range from basic preprocessing methods such as discretisation, standardisation, normalisation and handling outlier among others to preprocessing methods used on RNA-Seq data. Finally, bioScience also has methods to binarise a gene expression dataset.
 
    .. code-block:: python
 
@@ -97,6 +98,7 @@ demonstrates basic API functionality to generate results from the application of
       bs.standardize(dataset)
       bs.scale(dataset)
       bs.normalDistributionQuantile(dataset)
+      bs.outliers(dataset)
 
       # 2.2) RNA-Seq preprocessing
       bs.tpm(dataset)
@@ -146,7 +148,7 @@ demonstrates basic API functionality to generate results from the application of
       # RNA-Seq dataset load
       dataset = load(path="datasets/rnaseq.txt", index_gene=0, index_lengths=1 ,naFilter=True, head = 0)
 
-#. **Preprocessing:** In this phase, different methods for pre-processing are shown. They range from basic preprocessing methods such as discretisation, standardisation and normalisation among others to preprocessing methods used on RNA-Seq data. Finally, bioScience also has methods to binarise a gene expression dataset.
+#. **Preprocessing:** In this phase, different methods for pre-processing are shown. They range from basic preprocessing methods such as discretisation, standardisation, normalisation and handling outlier among others to preprocessing methods used on RNA-Seq data. Finally, bioScience also has methods to binarise a gene expression dataset.
 
    .. code-block:: python
 
@@ -155,6 +157,7 @@ demonstrates basic API functionality to generate results from the application of
       bs.standardize(dataset)
       bs.scale(dataset)
       bs.normalDistributionQuantile(dataset)
+      bs.outliers(dataset)
 
       # 2.2) RNA-Seq preprocessing
       bs.tpm(dataset)

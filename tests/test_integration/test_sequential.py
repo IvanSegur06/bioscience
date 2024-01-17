@@ -20,6 +20,7 @@ dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/b
 #bs.standardize(dataset)
 #bs.scale(dataset)
 #bs.normalDistributionQuantile(dataset)
+#bs.outliers(dataset)
 
 # 2.2) RNA-Seq preprocessing
 #bs.tpm(dataset)

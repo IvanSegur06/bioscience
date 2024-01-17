@@ -68,6 +68,8 @@ Alternatively, you could clone and run setup.py file:
 * **pandas**>=2.1.1
 * **scikit-learn**>=1.3.1
 * **numba**>=0.58.0
+* **seaborn**>=0.13.1
+* **matplotlib**>=3.8.2
 
 ----
 

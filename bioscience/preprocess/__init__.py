@@ -2,7 +2,8 @@ from .Standard import (
     discretize,
     standardize,
     scale,
-    normalDistributionQuantile
+    normalDistributionQuantile,
+    outliers
 )
 
 from .Binarization import (
@@ -22,6 +23,7 @@ __all__ = [
     "standardize",
     "scale",
     "normalDistributionQuantile",
+    "outliers",
     # Binarization.py
     "binarize",
     "binarizeLevels",

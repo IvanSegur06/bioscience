@@ -6,12 +6,16 @@ PANDAS_MIN_VERSION = "2.1.1"
 SCIKIT_MIN_VERSION = "1.3.1"
 NUMBA_MIN_VERSION = "0.58.0"
 PYTEST_MIN_VERSION = "7.1.2"
+SEABORN_MIN_VERSION = "0.13.1"
+MATPLOTLIB_MIN_VERSION = "3.8.2"
 
 dependent_packages = {
     "numpy": (NUMPY_MIN_VERSION, "build, install"),
     "pandas": (PANDAS_MIN_VERSION, "build, install"),
     "scikit-learn": (SCIKIT_MIN_VERSION, "build, install"),
     "numba": (NUMBA_MIN_VERSION, "build, install"),
+    "seaborn": (SEABORN_MIN_VERSION, "build, install"),
+    "matplotlib": (MATPLOTLIB_MIN_VERSION, "build, install"),
     "pytest": (PYTEST_MIN_VERSION, "tests"),
     "pytest-cov": ("2.9.0", "tests"),
 }
