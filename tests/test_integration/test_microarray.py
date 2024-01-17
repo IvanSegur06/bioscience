@@ -10,10 +10,13 @@ dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/b
 # 2) Preprocessing
 ###################
 
-bs.scale(dataset)
+#bs.scale(dataset)
 
 # Binarize
-bs.binarize(dataset, threshold = 0.2)
+#bs.binarize(dataset, threshold = 0.2)
+
+# Handling outliers
+#bs.outliers(dataset)
 
 ###################
 # 3) Data mining 

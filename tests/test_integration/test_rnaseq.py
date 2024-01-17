@@ -15,6 +15,9 @@ bs.tpm(dataset)
 # Binarize
 bs.binarize(dataset, threshold = 0.6)
 
+# Handling outliers
+#bs.outliers(dataset)
+
 ###################
 # 3) Data mining 
 ####################

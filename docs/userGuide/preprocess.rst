@@ -9,7 +9,7 @@ In these cases, the pre-processed dataset will be found modified in the ``datase
 Generic pre-processing methods
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following example shows different basic pre-processing options such as discretisations, standardisations, scaling and normal distributions based on quantiles. 
+The following example shows different basic pre-processing options such as discretisations, standardisations, scaling and normal distributions based on quantiles. In addition, outlier treatment is possible.
     
     .. code-block:: python
       
@@ -18,6 +18,7 @@ The following example shows different basic pre-processing options such as discr
         bs.standardize(dataset)
         bs.scale(dataset)
         bs.normalDistributionQuantile(dataset)
+        bs.outliers(dataset)
     
 To understand the meaning of each attribute you can access the :doc:`API reference <../api/api>`.
 

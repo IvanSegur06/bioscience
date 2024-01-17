@@ -20,6 +20,7 @@ import bioscience as bs
 #bs.standardize(dataset)
 #bs.scale(dataset)
 #bs.normalDistributionQuantile(dataset)
+#bs.outliers(dataset)
 
 # 2.2) RNA-Seq preprocessing
 #bs.tpm(dataset)
