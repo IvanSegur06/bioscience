@@ -10,10 +10,12 @@ dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/b
 # 2) Preprocessing
 ###################
 # TPM normalization
-bs.tpm(dataset)
+#bs.tpm(dataset)
+
+bs.deseq2Norm(dataset)
 
 # Binarize
-bs.binarize(dataset, threshold = 0.6)
+#bs.binarize(dataset, threshold = 0.6) #aqui
 
 # Handling outliers
 #bs.outliers(dataset)
@@ -25,7 +27,7 @@ bs.binarize(dataset, threshold = 0.6)
 #listModels = bs.bibit(dataset, cMnr=2, cMnc=2, mode=1, debug = True)
 
 # BiBit algorithm CPU Parallel
-listModels = bs.bibit(dataset, cMnr=2, cMnc=2, mode=2, debug = True)
+#listModels = bs.bibit(dataset, cMnr=2, cMnc=2, mode=2, debug = True) # aqui
 
 # BiBit algorithm GPU Parallel
 #listModels = bs.bibit(dataset, cMnr=2, cMnc=2, mode=3, deviceCount=1, debug = True)

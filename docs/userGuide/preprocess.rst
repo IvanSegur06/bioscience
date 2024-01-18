@@ -33,6 +33,7 @@ This subsection shows how to perform preprocessing with specific methods such as
         bs.tpm(dataset)
         bs.cpm(dataset)
         bs.fpkm(dataset)
+        bs.deseq2Norm(dataset)
 
 To understand the meaning of each attribute you can access the :doc:`API reference <../api/api>`.
 

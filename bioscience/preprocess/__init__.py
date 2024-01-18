@@ -14,7 +14,8 @@ from .Binarization import (
 from .RnaSeq import (
     tpm,
     fpkm,
-    cpm
+    cpm,
+    deseq2Norm
 )
 
 __all__ = [
@@ -30,5 +31,6 @@ __all__ = [
     # RnaSeq.py
     "tpm",
     "fpkm",    
-    "cpm"    
+    "cpm",
+    "deseq2Norm"  
 ]
