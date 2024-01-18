@@ -26,7 +26,7 @@ Add a new contribution to the library
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 If you intend to make a new contribution to the library, please `select the appropriate category and complete the form in full <https://github.com/aureliolfdez/bioscience/issues/new/choose/>`_ to ensure that the core development team can fully understand the scope of your contribution.
 
-This case is suitable for those who wish to incorporate new techniques or adapt these techniques to a high performance computing environment among others.
+This case is suitable for those who wish to incorporate new techniques or adapt these techniques to a high-performance computing environment among others.
 
 
 Report errors and requests for improvement

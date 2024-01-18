@@ -2,7 +2,7 @@ Data mining
 ===========
 In this section you will find a number of examples related to data mining techniques that can be used in bioScience. 
 
-In order to deliver the results of these techniques in the shortest possible time and in the most efficient way, each data mining technique implemented in this library is adapted to a High Performance Computing (HPC) environment. Therefore, each of these techniques have multiple execution modes, from a simple sequential execution, to a parallel CPU-based architecture or even multi-GPU (multi-GPU) architectures. 
+In order to deliver the results of these techniques in the shortest possible time and in the most efficient way, each data mining technique implemented in this library is adapted to a High-Performance Computing (HPC) environment. Therefore, each of these techniques have multiple execution modes, from a simple sequential execution, to a parallel CPU-based architecture or even multi-GPU (multi-GPU) architectures. 
 
 Biclustering methods
 ^^^^^^^^^^^^^^^^^^^^
