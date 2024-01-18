@@ -62,3 +62,21 @@ def cpm(dataset):
             countsLib[rowIndex][rowCol] = (value / colSums[rowCol]) * 1000000
             
         dataset.data = countsLib
+        
+
+def deseq2Norm(dataset):
+    """
+    Apply DESeq2 normalization method preprocessing to a dataset
+    
+    :param dataset: The dataset object to be preprocess.
+    :type dataset: :class:`bioscience.base.models.Dataset`
+    """
+    
+    if dataset is not None:        
+        propCounts = dataset.data / dataset.data.sum(axis=0)
+        medianRatios = np.median(propCounts, axis=1)
+        normalizationFactors = dataset.data.sum(axis=0) / medianRatios.sum()
+        normalizedCounts = dataset.data / normalizationFactors        
+        dataset.data = normalizedCounts
+
+    

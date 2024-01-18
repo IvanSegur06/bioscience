@@ -43,6 +43,7 @@ demonstrates basic API functionality to generate results from the application of
       # 2.2) RNA-Seq preprocessing
       bs.tpm(dataset)
       bs.cpm(dataset)
+      bs.deseq2Norm(dataset)
 
       # 2.3) Binary preprocessing
       bs.binarize(dataset)
@@ -103,6 +104,7 @@ demonstrates basic API functionality to generate results from the application of
       # 2.2) RNA-Seq preprocessing
       bs.tpm(dataset)
       bs.cpm(dataset)
+      bs.deseq2Norm(dataset)
 
       # 2.3) Binary preprocessing
       bs.binarize(dataset)
@@ -162,6 +164,7 @@ demonstrates basic API functionality to generate results from the application of
       # 2.2) RNA-Seq preprocessing
       bs.tpm(dataset)
       bs.cpm(dataset)
+      bs.deseq2Norm(dataset)
 
       # 2.3) Binary preprocessing
       bs.binarize(dataset)
