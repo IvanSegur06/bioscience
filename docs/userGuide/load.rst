@@ -7,7 +7,7 @@ To load a dataset correctly into bioScience, you need to know that the gene expr
 
 * Additional information such as gene names or features specific to the sequencing technologies, such as gene length for RNA-Seq, will be properly stored in the library so that this information can be used for proper data processing. For example, a practical case taken into account by bioScience is that, if the dataset provides gene length information, the user can apply normalisation methods that depend on this particular feature, such as the TPM normalisation method.
 
-* It is not necessary that the columns of the dataset are separated under a single criterion, e.g. tabular arrays. Therefore, bioScience allows loading datasets in which the columns of the dataset may be separated differently. In this case, the load() function has a 'separator' parameter that allows datasets to be loaded based on a user-defined separator character.
+* It is not necessary that the columns of the dataset are separated under a single criterion, e.g. tabular arrays. Therefore, bioScience allows loading datasets in which the columns of the dataset may be separated differently. In this case, the ``load`` function has a ``separator`` parameter that allows datasets to be loaded based on a user-defined separator character. To understand the meaning of each attribute in this load function you can access the :doc:`API reference <../api/api>`.
 
 * This library is compatible with data sets containing expression values that are not pre-processed, or have been previously pre-processed or even undergone a transformation process to binarise their expression values. 
 
