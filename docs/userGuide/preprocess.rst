@@ -25,7 +25,7 @@ To understand the meaning of each attribute you can access the :doc:`API referen
 RNA-Seq oriented pre-processing methods
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This subsection shows how to perform preprocessing with specific methods such as CPM, TPM and FPKM. 
+This subsection shows how to perform preprocessing with specific methods such as CPM, TPM, FPKM and DESEq2. 
 
     .. code-block:: python
     
