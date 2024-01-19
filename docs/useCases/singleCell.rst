@@ -7,7 +7,7 @@ The aim of this real use-case is to illustrate the power of bioScience against a
 
 Dataset information
 ^^^^^^^^^^^^^^^^^^^
-For this real case, the `GSE246622 <https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE246622>` dataset from the `NCBI GEO (Gene Expression Omnibus) <https://www.ncbi.nlm.nih.gov/geo/>` database is used. This Single-cell dataset for the organism Homo sapiens has a total of 22593 rows and 533 samples.
+For this real case, the GSE246622 dataset from the NCBI GEO database is used. This Single-cell dataset for the organism Homo sapiens has a total of 22593 rows and 533 samples.
 
 To generate this dataset, healthy infants and infants with mild (RSV-infected, non-hospitalized), moderate (RSV-infected, hospitalized without mechanical ventilation), and severe (RSV-infected, hospitalized with mechanical ventilation) RSV disease were recruited during the acute RSV infection and at convalescence. Whole blood samples were analysed using Clariom GOScreen human assay in 384 well plate format. Infants with comorbidities excluded from the downstream comparative analyses.
 
