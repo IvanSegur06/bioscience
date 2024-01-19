@@ -1,14 +1,22 @@
 from .Biclustering import (
     bibit,
+    bcca
 )
 
 from .BiBit import (
-    process,
+    processBiBit,
+)
+
+from .Bcca import (
+    processBcca,
 )
 
 __all__ = [
     # Biclustering.py
     "bibit",
+    "bcca",
     # BiBit.py
-    "process",
+    "processBiBit",
+    # Bcca.py
+    "processBcca",
 ]

@@ -1,7 +1,7 @@
 import argparse
 from collections import defaultdict
 
-NUMPY_MIN_VERSION = "1.26.0"
+NUMPY_MIN_VERSION = "1.26.3"
 PANDAS_MIN_VERSION = "2.1.1"
 SCIKIT_MIN_VERSION = "1.3.1"
 NUMBA_MIN_VERSION = "0.58.0"

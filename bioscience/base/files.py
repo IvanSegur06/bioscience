@@ -35,7 +35,7 @@ def load(path, separator = "\t", skipr = 0, naFilter = False, index_gene = -1, i
     """
     dataset = None
     if path is not None:
-        extensionsCsv = [".txt",".csv"]    
+        extensionsCsv = [".txt",".csv",".tsv"]    
         fileName, fileExtension = os.path.splitext(path)
         if fileExtension in extensionsCsv:
             if naFilter is True:

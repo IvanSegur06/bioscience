@@ -59,7 +59,10 @@ def cpm(dataset):
         
         countsLib = np.zeros((len(dataset.data),len(dataset.data[0])))
         for (rowIndex, rowCol), value in np.ndenumerate(dataset.data):
-            countsLib[rowIndex][rowCol] = (value / colSums[rowCol]) * 1000000
+            if colSums[rowCol] != 0:
+                countsLib[rowIndex][rowCol] = (value / colSums[rowCol]) * 1000000
+            else:
+                countsLib[rowIndex][rowCol] = 0
             
         dataset.data = countsLib
         

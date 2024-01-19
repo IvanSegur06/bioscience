@@ -61,6 +61,12 @@ BioScience is an advanced Python library designed to satisfy the growing data an
 
 .. toctree::
    :maxdepth: 2
+   :caption: Real use-cases
+
+   useCases/singleCell
+
+.. toctree::
+   :maxdepth: 2
    :caption: API Reference
 
    api/api
