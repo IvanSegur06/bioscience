@@ -64,7 +64,7 @@ Alternatively, you could clone and run setup.py file:
 **Required Dependencies**\ :
 
 * **Python**>=3.10
-* **numpy**>=1.26.0
+* **numpy**>=1.26.3
 * **pandas**>=2.1.1
 * **scikit-learn**>=1.3.1
 * **numba**>=0.58.0

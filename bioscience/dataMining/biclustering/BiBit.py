@@ -13,7 +13,7 @@ import threading
 import warnings
 from numba import cuda, njit, NumbaWarning, set_num_threads, prange
 
-def process(dataset, cMnr, cMnc, deviceCount, mode, debug):
+def processBiBit(dataset, cMnr, cMnc, deviceCount, mode, debug):
     
     """
     Sub-function processing the BiBit Biclustering algorithm.
