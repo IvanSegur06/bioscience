@@ -64,6 +64,8 @@ BioScience is an advanced Python library designed to satisfy the growing data an
    :caption: Real use-cases
 
    useCases/singleCell
+   useCases/rnaSeq
+   useCases/microarray
 
 .. toctree::
    :maxdepth: 2
