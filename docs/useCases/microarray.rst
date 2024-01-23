@@ -1,4 +1,4 @@
-Microarray: Real use-case
+Microarray
 ==========================
 
 The aim of this real use-case is to illustrate the power of bioScience against a real data set.

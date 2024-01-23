@@ -1,4 +1,4 @@
-Single-Cell: Real use-case
+Single-Cell
 ==========================
 
 The aim of this real use-case is to illustrate the power of bioScience against a real data set.
