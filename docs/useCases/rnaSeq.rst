@@ -1,4 +1,4 @@
-RNA-Seq: Real use-case
+RNA-Seq
 ==========================
 
 The aim of this real use-case is to illustrate the power of bioScience against a real data set.
