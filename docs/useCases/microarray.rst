@@ -1,4 +1,4 @@
-Single-Cell: Real use-case
+Microarray: Real use-case
 ==========================
 
 The aim of this real use-case is to illustrate the power of bioScience against a real data set.
@@ -7,12 +7,9 @@ The aim of this real use-case is to illustrate the power of bioScience against a
 
 Dataset information
 ^^^^^^^^^^^^^^^^^^^
-For this real case, the GSE246622 dataset from the NCBI GEO database is used. This Single-cell dataset for the organism Homo sapiens has a total of 22593 rows and 533 samples.
+For this real case, the GSE26910 dataset from the NCBI GEO database is used. This microarray dataset for the organism Homo sapiens has a total of 3016 rows and 6 samples.
 
-To generate this dataset, healthy infants and infants with mild (RSV-infected, non-hospitalized), moderate (RSV-infected, hospitalized without mechanical ventilation), and severe (RSV-infected, hospitalized with mechanical ventilation) RSV disease were recruited during the acute RSV infection and at convalescence. Whole blood samples were analysed using Clariom GOScreen human assay in 384 well plate format. Infants with comorbidities excluded from the downstream comparative analyses.
-
-While the majority of infants infected with respiratory syncytial virus (RSV) exhibit mild or no symptoms, approximately 3 million children under the age of five are hospitalized every year due to complications from RSV. This research sought to explore the biological processes and related biomarkers responsible for the varied manifestations of RSV disease in young infants. The goal is to pave the way for a more precise categorization of RSV-infected infants based on their medical requirements. Whole blood samples are collected from infant case-control cohort study, the RESCEU case-control cohort is a multinational, multicenter, observational study (clinical trial registration number: NCT03756766). Infants < 12 months old with RSV disease were recruited from the University Medical Center Utrecht (UMCU) in The Netherlands, Hospital Clínico Universitario de Santiago (SERGAS) in Spain, Imperial College (IMPERIAL) National Health Service Trust (NHS) and Oxford University Hospital NHS Trust (OXFORD) in the United Kingdom during the RSV seasons 2017-2018, 2018-2019, and 2019-2020. Healthy controls without underlying comorbidities were recruited outside of the RSV season. Eligibility criteria included hospitalization for less than 48 hours at enrolment or within 96 hours of disease onset, no previous receipt of medications to treat RSV infection, no prior exposure to an investigational RSV vaccine or medication, no previous receipt of immunoglobulins or monoclonal antibodies, and had not used montelukast or oral steroids within seven days before enrolment. Infants with co-morbidities were not evaluated in the manuscript. RSV was detected using RSV point-of-care test (POCT) by either a rapid antigen detection test (Alere I) (Alere Inc, Waltham, Massachusetts) or rapid RSV polymerase chain reaction (PCR) test at the hospital setting, or a RSV PCR test at the laboratory. Convalescence samples were collected 7 ±1 weeks after a positive RSV diagnostic test result. We used microarray to assist us to identify biomarkers for severe RSV disease.
-
+To generate this dataset, six samples of stroma surrounding invasive breast primary tumors were recruited. Primary tumor growth induces host tissue responses that are believed to support and promote tumor progression. Identification of the molecular characteristics of the tumor microenvironment and elucidation of its crosstalk with tumor cells may therefore be crucial for improving our understanding of the processes implicated in cancer progression, identifying potential therapeutic targets, and uncovering stromal gene expression signatures that may predict clinical outcome. A key issue to resolve, therefore, is whether the stromal response to tumor growth is largely a generic phenomenon, irrespective of the tumor type, or whether the response reflects tumor-specific properties. To address similarity or distinction of stromal gene expression changes during cancer progression, oligonucleotide-based Affymetrix microarray technology was used to compare the transcriptomes of laser-microdissected stromal cells derived from invasive human breast carcinoma. Invasive breast cancer-associated stroma was observed to display distinct transcriptomes, with a limited number of shared genes. Interestingly, breast tumor-specific dysregulated stromal genes were observed to cluster breast cancer patients, respectively, into two distinct groups with statistically different clinical outcomes. By contrast, a gene signature that was common to the reactive stroma of both tumor types did not have survival predictive value. Univariate Cox analysis identified genes whose expression level was most strongly associated with patient survival. Taken together, these observations suggest that the tumor microenvironment displays distinct features according to the tumor type that provides survival-predictive value.
 
 Biclustering analysis
 ^^^^^^^^^^^^^^^^^^^^^
@@ -20,20 +17,20 @@ The aim of this analysis is to run a biclustering algorithm called BiBit to obta
 
 Once this Biclustering algorithm has been executed, the execution times of each of the versions will be compared to demonstrate the power and usefulness of this library.
 
-**1. Load single-cell dataset:** Load the single-cell dataset from the input file.
+**1. Load microarray dataset:** Load the microarray dataset from the input file.
 
     .. code-block:: python
 
       import bioscience as bs
 
-      dataset = bs.load(path="/home/user/Desktop/GSE246622.csv", index_lengths = 0, index_gene=0, naFilter=False, head = 0, separator=";")
+      dataset = bs.load(path="/home/user/Desktop/GSE26910.csv", index_lengths = 0, index_gene=0, naFilter=False, head = 0, separator=";")
 
-**2. Preprocessing:** For this dataset it is not necessary to normalise the data as they are pre-processed before log2. However, this dataset must be binarised because the Biclustering algorithm used requires the dataset to contain binary values.
+**2. Preprocessing:** For this dataset it is necessary to scale data. Furthermore, this dataset must be binarised because the Biclustering algorithm used requires the dataset to contain binary values.
 
     .. code-block:: python
 
       import bioscience as bs
-
+      bs.scale(dataset)
       bs.binarize(dataset)
 
 **3. Biclustering:** In this phase, the BiBit Biclustering algorithm is run to generate useful knowledge from this dataset. This algorithm can be run in three modes: sequential, parallel CPU and multi-GPU.
@@ -68,21 +65,21 @@ Once the Biclustering algorithm is executed, it is detected that a total of 149 
 
       Resume:
       ========================
-      Dataset size (rows,columns):  22593 , 533
+      Dataset size (rows,columns):  3016 , 6
       Execution mode:  CPU Sequential
       MNC value:  2
       MNR value:  2
       Results:
       ========================
-      Biclusters found:  149
+      Biclusters found:  737505
 
 **4. Results:** It is possible to save the name of the genes of each bicluster generated by BiBit:
 
    .. code-block:: python
       
       bs.saveGenes(path="/home/user/Desktop/", models=listModels, data=dataset)
-  
-  A row in this file represents a bicluster, while the content of each row represents the genes present in each bicluster. Some of the biclusters contained in this file are the following:
+
+    A row in this file represents a bicluster, while the content of each row represents the genes present in each bicluster. Some of the biclusters contained in this file are the following:
 
   .. code-block:: console
       
@@ -100,6 +97,6 @@ This experiment was conducted on a system equipped with an Intel Xeon E5-2686 v4
     :header: "Sequential mode", "CPU Parallel", "GPU Parallel (1 GPU)", "GPU Parallel (2 GPU)"
     :widths: 25, 25, 25, 25
 
-    "20431,81 s.","2667,31 s.","674,46 s.","334,12 s."
+    "18,31 s.","6,14 s.","1,38 s.","0,67 s."
 
 The run times shown in the table above are in seconds. As can be seen, the interest in the use of High Performance Computing (HPC) in the field of Bioinformatics is gaining more and more relevance due to the increasing volume of datasets and the complexity of data mining techniques to extract useful knowledge.
