@@ -100,12 +100,11 @@ API demo
 
 **Citing bioScience**\ :
 
-`bioScience <#>`_ is published in
-`(under review) <#>`_.
+`bioScience <https://www.sciencedirect.com/science/article/pii/S2352711024000372>`_ is published in
+`SoftwareX <https://www.sciencedirect.com/science/article/pii/S2352711024000372>`_.
 If you use bioScience in a scientific publication, we would appreciate citations to the following paper::
 
-   Under review
-
+   López-Fernández, A., Gómez-Vela, F. A., Gonzalez-Dominguez, J., & Bidare-Divakarachari, P. (2024). bioScience: A new python science library for high-performance computing bioinformatics analytics. SoftwareX, 26, 101666.
 
 **Key Links and Resources**\ :
 
