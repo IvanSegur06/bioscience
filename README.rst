@@ -100,7 +100,7 @@ API demo
 
 **Citing bioScience**\ :
 
-`bioScience <#>`_ is published in
+`bioScience <https://www.sciencedirect.com/science/article/pii/S2352711024000372>`_ is published in
 `SoftwareX <https://www.sciencedirect.com/science/article/pii/S2352711024000372>`_.
 If you use bioScience in a scientific publication, we would appreciate citations to the following paper::
 
