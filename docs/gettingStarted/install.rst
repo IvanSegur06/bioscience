@@ -23,15 +23,15 @@ or also run setup.py file:
    git clone https://github.com/aureliolfdez/bioscience.git
    python3 setup.py clean
    python3 setup.py sdist
-   python3 -m pip install ./dist/bioscience-0.1.2.tar.gz
+   python3 -m pip install ./dist/bioscience-0.1.3.tar.gz
 
 .. note::
    Required dependencies:
     
     * **Python**>=3.10
-    * **numpy**>=1.26.3
-    * **pandas**>=2.1.1
-    * **scikit-learn**>=1.3.1
-    * **numba**>=0.58.0
-    * **seaborn**>=0.13.1
-    * **matplotlib**>=3.8.2
+    * **numpy**>=2.0.1
+    * **pandas**>=2.2.2
+    * **scikit-learn**>=1.5.1
+    * **numba**>=0.60.0
+    * **seaborn**>=0.13.2
+    * **matplotlib**>=3.9.1

@@ -3,7 +3,7 @@ bioScience: A new Python science library for High-Performance Computing Bioinfor
 
 **Deployment & Documentation & Stats**
 
-.. image:: https://img.shields.io/badge/pypi-v0.1.2-brightgreen
+.. image:: https://img.shields.io/badge/pypi-v0.1.3-brightgreen
    :target: https://pypi.org/project/bioscience/
    :alt: PyPI version
 
@@ -64,12 +64,12 @@ Alternatively, you could clone and run setup.py file:
 **Required Dependencies**\ :
 
 * **Python**>=3.10
-* **numpy**>=1.26.3
-* **pandas**>=2.1.1
-* **scikit-learn**>=1.3.1
-* **numba**>=0.58.0
-* **seaborn**>=0.13.1
-* **matplotlib**>=3.8.2
+* **numpy**>=2.0.1
+* **pandas**>=2.2.2
+* **scikit-learn**>=1.5.1
+* **numba**>=0.60.0
+* **seaborn**>=0.13.2
+* **matplotlib**>=3.9.1
 
 ----
 
