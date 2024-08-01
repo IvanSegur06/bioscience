@@ -10,7 +10,8 @@ from .models import (
     Dataset,
     Validation,
     Bicluster,
-    BiclusteringModel
+    BiclusteringModel,
+    CorrelationModel
 )
 
 __all__ = [
@@ -19,6 +20,7 @@ __all__ = [
     "Validation",
     "Bicluster",
     "BiclusteringModel",
+    "CorrelationModel",
     # Non-classes
     "load",
     "saveResultsIndex",

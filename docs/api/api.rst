@@ -49,6 +49,14 @@ bioscience.preprocess
    :undoc-members:
    :show-inheritance:
 
+bioscience.stats
+---------------------
+
+.. automodule:: bioscience.stats.Correlation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 bioscience.dataMining
 ---------------------
 
