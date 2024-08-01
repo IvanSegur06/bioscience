@@ -56,6 +56,7 @@ BioScience is an advanced Python library designed to satisfy the growing data an
 
    userGuide/load
    userGuide/preprocess
+   userGuide/stats
    userGuide/dataMining
    userGuide/results
 
