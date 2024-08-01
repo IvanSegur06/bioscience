@@ -34,7 +34,8 @@ dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/b
 ##################
 # 3) Correlation 
 ##################
-resultsCorrelation = bs.kendall(dataset)
+resultsCorrelation = bs.kendall(dataset, threshold=0.4)
+print(resultsCorrelation.results)
 
 ###################
 # 3) Data mining 

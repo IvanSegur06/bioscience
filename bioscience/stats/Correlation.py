@@ -126,8 +126,14 @@ def __kendallSequential(dataset, threshold, debug):
             # Calculate Kendall value
             if (lCombination - tiersGene1) * (lCombination - tiersGene2) != 0:
                 dKendall = (iConcordant - iDiscordant) / math.sqrt((lCombination - tiersGene1) * (lCombination - tiersGene2))
+                if dKendall < 0:
+                    dKendall = dKendall * -1
+                
+                if dKendall < threshold:
+                    dKendall = None
             else:
-                dKendall = None            
+                dKendall = None
+                        
         
         resultsCorrelation[pattern] = dKendall
     
