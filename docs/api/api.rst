@@ -6,6 +6,7 @@ The following subpackages are public.
 
 * ``bioscience.base``: It contains functions for the management of I/O operations, files and objects and methods that form the core of the library and are used by the rest of the library's subpackages.
 * ``bioscience.preprocess``: This subpackage includes the functions associated with each of the preprocessing methods implemented in bioScience.
+* ``bioscience.stats``: This subpackage includes the functions associated with each of the statistical methods implemented in bioScience.
 * ``bioscience.dataMining``: This subpackage contains all the source code for those data mining techniques that can be used in bioScience.
 
 Within each subpackage there may be various functions and methods that may be private because they are often intermediate operations of the implemented methods.
