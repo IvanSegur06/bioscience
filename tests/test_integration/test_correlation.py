@@ -36,9 +36,15 @@ dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/b
 ##################
 #resultsCorrelation = bs.kendall(dataset, threshold=0.4)
 #print(resultsCorrelation.results)
+#print(resultsCorrelation.geneInteractionsIndex)
 
 #resultsCorrelation = bs.spearman(dataset, threshold=0)
 #print(resultsCorrelation.results)
+#print(resultsCorrelation.geneInteractionsIndex)
+
+#resultsCorrelation = bs.nmi(dataset,threshold=0.3)
+#print(resultsCorrelation.results)
+#print(resultsCorrelation.geneInteractionsIndex)
 
 ###################
 # 3) Data mining 
