@@ -1,1 +1,1 @@
-__all__ = ["base","dataMining","preprocess"]
+__all__ = ["base","dataMining","preprocess","stats"]
