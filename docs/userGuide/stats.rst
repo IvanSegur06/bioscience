@@ -15,5 +15,6 @@ The following examples show how to use correlation methods such as Kendall, Spea
       
         import bioscience as bs
         resultsCorrelation = bs.kendall(dataset)
+        resultsCorrelation = bs.spearman(dataset)
     
 To understand the meaning of each attribute you can access the :doc:`API reference <../api/api>`.
