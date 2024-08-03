@@ -1,10 +1,12 @@
 from .Correlation import (
     kendall,
-    spearman
+    spearman,
+    nmi
 )
 
 __all__ = [
     # Correlation.py
     "kendall",
-    "spearman"
+    "spearman",
+    "nmi"
 ]

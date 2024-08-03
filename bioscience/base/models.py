@@ -326,10 +326,35 @@ class CorrelationModel:
     
     """
     
-    def __init__(self, results, executionTime = None):   
+    def __init__(self, results, rows, executionTime = None):   
         
         self._results = results        
         self._executionTime = executionTime
+        self._geneInteractionsIndex = np.zeros((rows,2))
+        
+        pattern = 0
+        while pattern < rows:
+            
+            r1 = 0
+            r2 = -1
+            auxPat = pattern - rows + 1
+            
+            if auxPat < 0:
+                r2 = auxPat + rows
+
+            j = rows - 2
+            while r2 == -1:
+                auxPat -= j
+                r1 += 1
+                if auxPat < 0:
+                    r2 = (j + auxPat) + (r1 + 1)
+                j -= 1
+            
+            if(r1 < rows and r2 < rows):
+                self._geneInteractionsIndex[pattern][0] = r1
+                self._geneInteractionsIndex[pattern][1] = r2
+            
+            pattern += 1
     
     @property
     def executionTime(self):
@@ -352,5 +377,16 @@ class CorrelationModel:
     @results.setter
     def results(self, results):
         self._results = results
+        
+    @property
+    def geneInteractionsIndex(self):
+        """
+        Getter and setter methods of the results property.
+        """
+        return self._geneInteractionsIndex
+    
+    @geneInteractionsIndex.setter
+    def geneInteractionsIndex(self, geneInteractionsIndex):
+        self._geneInteractionsIndex = geneInteractionsIndex
     
     
