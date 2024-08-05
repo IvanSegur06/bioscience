@@ -34,4 +34,4 @@ or also run setup.py file:
     * **scikit-learn**>=1.5.1
     * **numba**>=0.60.0
     * **seaborn**>=0.13.2
-    * **matplotlib**>=3.9.1
+    * **matplotlib**>=3.9.0
