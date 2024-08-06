@@ -1,4 +1,5 @@
 import bioscience as bs
+import numpy as np
 
 ###################
 # 1) Load dataset 
@@ -34,7 +35,7 @@ dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/b
 ##################
 # 3) Correlation 
 ##################
-resultsCorrelation = bs.kendall(dataset)
+"""resultsCorrelation = bs.kendall(dataset)
 print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)
 
@@ -48,9 +49,9 @@ print(resultsCorrelation.results)
 
 resultsCorrelation = bs.hoeffdingsD(dataset)
 print(resultsCorrelation.results)
-#print(resultsCorrelation.geneInteractionsIndex)
+#print(resultsCorrelation.geneInteractionsIndex)"""
 
-#bs.ensemble(dataset, threshold=0, type="ordinal")
+bs.ensembleStats(dataset, methods=np.array(["kendall","spearman"]),thresholds=np.array([0.5,0]))
 
 ###################
 # 3) Data mining 
