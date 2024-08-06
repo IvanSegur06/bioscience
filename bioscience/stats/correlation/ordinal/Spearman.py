@@ -8,15 +8,12 @@ import warnings
 import numpy as np
 import time
 
-def spearman(dataset, threshold = 0.7, deviceCount = 0, mode = 1, debug = False):
+def spearman(dataset, deviceCount = 0, mode = 1, debug = False):
     """
     Application of the Spearman correlation method.
     
     :param dataset: The dataset object to be binarized.
     :type dataset: :class:`bioscience.base.models.Dataset`
-    
-    :param threshold: The value for the threshold must be between 0 and 1. The default threshold is 0.7.
-    :type threshold: float, optional
     
     param deviceCount: Number of GPU devices to execute
     :type deviceCount: int
@@ -28,13 +25,8 @@ def spearman(dataset, threshold = 0.7, deviceCount = 0, mode = 1, debug = False)
     :rtype: :class:`bioscience.base.models.CorrelationModel`      
     """ 
     
-    if threshold < 0:
-        threshold = 0
-    elif threshold > 1:
-        threshold = 1
-    
     oModel = None
-    if (dataset is not None) and (0.0 <= threshold <= 1.0):
+    if (dataset is not None):
         sMode = ""
         if mode == 2: # NUMBA: CPU Parallel mode
             # To be developed
@@ -43,13 +35,13 @@ def spearman(dataset, threshold = 0.7, deviceCount = 0, mode = 1, debug = False)
             # To be developed
             sMode = "NUMBA - GPU Parallel mode (to be developed)"
         else: # Sequential mode
-            oModel = __spearmanSequential(dataset, threshold, debug)
+            oModel = __spearmanSequential(dataset, debug)
             deviceCount = 0
             sMode = "CPU Sequential"
     
     return oModel
 
-def __spearmanSequential(dataset, threshold, debug):
+def __spearmanSequential(dataset, debug):
     iRows = dataset.data.shape[0]
     iCols = dataset.data.shape[1]
     fExecutionTime = None    
@@ -129,13 +121,6 @@ def __spearmanSequential(dataset, threshold, debug):
             dSpearman = None
             if (fSpearmanStats[pattern][2] * fSpearmanStats[pattern][3]) != 0:
                 dSpearman = resultsCorrelation[pattern] / (fSpearmanStats[pattern][2] * fSpearmanStats[pattern][3])
-                   
-            if dSpearman != None:
-                if dSpearman < 0:
-                    dSpearman = dSpearman * -1
-                    
-                if dSpearman < threshold:
-                    dSpearman = None
             
             resultsCorrelation[pattern] = dSpearman
         

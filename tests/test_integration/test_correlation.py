@@ -34,17 +34,23 @@ dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/b
 ##################
 # 3) Correlation 
 ##################
-#resultsCorrelation = bs.kendall(dataset, threshold=0.4)
-#print(resultsCorrelation.results)
+resultsCorrelation = bs.kendall(dataset)
+print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)
 
-#resultsCorrelation = bs.spearman(dataset, threshold=0)
-#print(resultsCorrelation.results)
+resultsCorrelation = bs.spearman(dataset)
+print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)
 
-#resultsCorrelation = bs.nmi(dataset,threshold=0.3)
-#print(resultsCorrelation.results)
+resultsCorrelation = bs.nmi(dataset)
+print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)
+
+resultsCorrelation = bs.hoeffdingsD(dataset)
+print(resultsCorrelation.results)
+#print(resultsCorrelation.geneInteractionsIndex)
+
+#bs.ensemble(dataset, threshold=0, type="ordinal")
 
 ###################
 # 3) Data mining 
