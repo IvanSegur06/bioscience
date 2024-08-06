@@ -330,10 +330,16 @@ class CorrelationModel:
         
         self._results = results        
         self._executionTime = executionTime
-        self._geneInteractionsIndex = np.zeros((rows,2))
         
+        maxPairs = 0        
+        for i in range(rows):
+            for j in range(i + 1, rows):
+                maxPairs += 1
+        
+        self._geneInteractionsIndex = np.zeros((maxPairs,2))
+                
         pattern = 0
-        while pattern < rows:
+        while pattern < maxPairs:
             
             r1 = 0
             r2 = -1
