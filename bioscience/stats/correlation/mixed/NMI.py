@@ -8,15 +8,12 @@ import warnings
 import numpy as np
 import time
 
-def nmi(dataset, threshold = 0.7, deviceCount = 0, mode = 1, debug = False):
+def nmi(dataset, deviceCount = 0, mode = 1, debug = False):
     """
     Application of the Normalized Mutual Information (NMI) correlation method.
     
     :param dataset: The dataset object to be binarized.
     :type dataset: :class:`bioscience.base.models.Dataset`
-    
-    :param threshold: The value for the threshold must be between 0 and 1. The default threshold is 0.7.
-    :type threshold: float, optional
     
     param deviceCount: Number of GPU devices to execute
     :type deviceCount: int
@@ -28,13 +25,8 @@ def nmi(dataset, threshold = 0.7, deviceCount = 0, mode = 1, debug = False):
     :rtype: :class:`bioscience.base.models.CorrelationModel`      
     """ 
     
-    if threshold < 0:
-        threshold = 0
-    elif threshold > 1:
-        threshold = 1
-    
     oModel = None
-    if (dataset is not None) and (0.0 <= threshold <= 1.0):
+    if (dataset is not None):
         sMode = ""
         if mode == 2: # NUMBA: CPU Parallel mode
             # To be developed
@@ -43,7 +35,7 @@ def nmi(dataset, threshold = 0.7, deviceCount = 0, mode = 1, debug = False):
             # To be developed
             sMode = "NUMBA - GPU Parallel mode (to be developed)"
         else: # Sequential mode
-            oModel = __nmiSequential(dataset, threshold, debug)
+            oModel = __nmiSequential(dataset, debug)
             deviceCount = 0
             sMode = "CPU Sequential"
     
@@ -76,7 +68,7 @@ def __normalizedNmi(dataset):
     return dataNormalized, maxValueDataset
         
 
-def __nmiSequential(dataset, threshold, debug):
+def __nmiSequential(dataset, debug):
     iRows = dataset.data.shape[0]
     iCols = dataset.data.shape[1]
     fExecutionTime = None
@@ -176,16 +168,10 @@ def __nmiSequential(dataset, threshold, debug):
             
             # Get calculation value
             denom = (nmiResults[pattern][1] + nmiResults[pattern][2])
-            if denom > 0:
-                dNMI = 2.0 * nmiResults[pattern][0] / denom
-            else:
-                dNMI = 0  # Si denom es 0, se asigna dNMI a 0
-                
-            if dNMI < 0:
-                dNMI = dNMI * -1
-                    
-            if dNMI < threshold:
+            if denom == 0:
                 dNMI = None
+            else:
+                dNMI = 2.0 * nmiResults[pattern][0] / denom                    
             
             nmiResults[pattern][0] = dNMI
                 

@@ -6,9 +6,15 @@ from .Spearman import (
     spearman
 )
 
+from .HoeffdingsD import (
+    hoeffdingsD
+)
+
 __all__ = [
     # Kendall.py
     "kendall",
     # Spearman.py
-    "spearman"
+    "spearman",
+    # HoeffdingsD.py
+    "hoeffdingsD"
 ]
