@@ -10,7 +10,7 @@ import time
 
 def hoeffdingsD(dataset, deviceCount = 0, mode = 1, debug = False):
     """
-    Application of the Hoeffding's D correlation method.
+    Application of the Hoeffding's D correlation method. A Hoeffdings'D value of 0 indicates a clear independence between variables; whereas, a value of 1 indicates a perfect dependence between variables. A negative value close to -1 may indicate a very strong dependence between the variables, in the opposite direction to independence.
     
     :param dataset: The dataset object to be binarized.
     :type dataset: :class:`bioscience.base.models.Dataset`
