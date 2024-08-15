@@ -51,8 +51,8 @@ resultsCorrelation = bs.hoeffdingsD(dataset)
 print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)"""
 
-resultsCorrelation = bs.pearson(dataset)
-print(resultsCorrelation.results)
+#resultsCorrelation = bs.pearson(dataset)
+#print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)
 
 #stats = bs.ensembleStats(dataset, methods=np.array(["kendall","spearman","hoeffdingsD","nmi"]),thresholds=np.array([0.5,0,0,0.1]))
