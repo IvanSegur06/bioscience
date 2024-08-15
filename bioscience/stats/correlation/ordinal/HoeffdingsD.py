@@ -88,7 +88,10 @@ def __hoeffdingsDSequential(dataset, debug):
             D1 = np.sum( np.multiply((Q-1),(Q-2)) )
             D2 = np.sum( np.multiply(np.multiply((R-1),(R-2)),np.multiply((S-1),(S-2)) ) )
             D3 = np.sum( np.multiply(np.multiply((R-2),(S-2)),(Q-1)) )
-            dValue = 30*((lenRow-2)*(lenRow-3)*D1 + D2 - 2*(lenRow-2)*D3) / (lenRow*(lenRow-1)*(lenRow-2)*(lenRow-3)*(lenRow-4))
+            if (lenRow*(lenRow-1)*(lenRow-2)*(lenRow-3)*(lenRow-4)) == 0:
+                dValue = None
+            else:
+                dValue = 30*((lenRow-2)*(lenRow-3)*D1 + D2 - 2*(lenRow-2)*D3) / (lenRow*(lenRow-1)*(lenRow-2)*(lenRow-3)*(lenRow-4))
         
             resultsCorrelation[pattern] = dValue
     
@@ -96,7 +99,7 @@ def __hoeffdingsDSequential(dataset, debug):
         end_time = time.time()
         fExecutionTime = end_time - start_time
     
-    oCorrelationResults = CorrelationModel(results=resultsCorrelation, rows = iRows, executionTime=fExecutionTime)
+    oCorrelationResults = CorrelationModel(name=HOEFFDINGS, results=resultsCorrelation, rows = iRows, executionTime=fExecutionTime)
     return oCorrelationResults
 
 def __rankdata(a):

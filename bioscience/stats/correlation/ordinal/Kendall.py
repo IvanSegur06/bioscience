@@ -123,5 +123,5 @@ def __kendallSequential(dataset, debug):
         end_time = time.time()
         fExecutionTime = end_time - start_time
     
-    oCorrelationResults = CorrelationModel(results=resultsCorrelation, rows = iRows, executionTime=fExecutionTime)
+    oCorrelationResults = CorrelationModel(name=KENDALL, results=resultsCorrelation, rows = iRows, executionTime=fExecutionTime)
     return oCorrelationResults
