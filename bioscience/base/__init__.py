@@ -18,7 +18,8 @@ from .constants import (
     SPEARMAN,
     KENDALL,
     NMI,
-    HOEFFDINGS
+    HOEFFDINGS,
+    PEARSON
 )
 
 __all__ = [
@@ -38,6 +39,6 @@ __all__ = [
     "SPEARMAN",
     "KENDALL",
     "NMI",
-    "HOEFFDINGS"
-      
+    "HOEFFDINGS",
+    "PEARSON"      
 ]
