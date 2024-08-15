@@ -14,6 +14,13 @@ from .models import (
     CorrelationModel
 )
 
+from .constants import (
+    SPEARMAN,
+    KENDALL,
+    NMI,
+    HOEFFDINGS
+)
+
 __all__ = [
     # Classes
     "Dataset",
@@ -26,5 +33,11 @@ __all__ = [
     "saveResultsIndex",
     "saveResults",
     "saveGenes",
-    "saveBinaryDatasets"    
+    "saveBinaryDatasets",
+    # Constants
+    "SPEARMAN",
+    "KENDALL",
+    "NMI",
+    "HOEFFDINGS"
+      
 ]

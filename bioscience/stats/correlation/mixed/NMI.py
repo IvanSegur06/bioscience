@@ -181,5 +181,5 @@ def __nmiSequential(dataset, debug):
         end_time = time.time()
         fExecutionTime = end_time - start_time
     
-    oCorrelationResults = CorrelationModel(results=nmiResults[:,0], rows = iRows, executionTime=fExecutionTime)
+    oCorrelationResults = CorrelationModel(name=NMI, results=nmiResults[:,0], rows = iRows, executionTime=fExecutionTime)
     return oCorrelationResults

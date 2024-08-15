@@ -51,7 +51,12 @@ resultsCorrelation = bs.hoeffdingsD(dataset)
 print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)"""
 
-bs.ensembleStats(dataset, methods=np.array(["kendall","spearman"]),thresholds=np.array([0.5,0]))
+stats = bs.ensembleStats(dataset, methods=np.array(["kendall","spearman","hoeffdingsD","nmi"]),thresholds=np.array([0.5,0,0,0.1]))
+#stats = bs.ensembleStats(dataset, methods="ordinal",thresholds=np.array([0.5,0,0]))
+#stats = bs.ensembleStats(dataset, methods="ordinal",thresholds=0)
+
+for index, resultsStats in enumerate(stats):
+    print(f"Indice: {index} - Name: {resultsStats.name} - Results: {resultsStats.results}")
 
 ###################
 # 3) Data mining 

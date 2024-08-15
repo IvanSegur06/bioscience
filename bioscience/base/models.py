@@ -326,8 +326,9 @@ class CorrelationModel:
     
     """
     
-    def __init__(self, results, rows, executionTime = None):   
+    def __init__(self, name, results, rows, executionTime = None):   
         
+        self._name = name
         self._results = results        
         self._executionTime = executionTime
         
@@ -362,6 +363,17 @@ class CorrelationModel:
             
             pattern += 1
     
+    @property
+    def name(self):
+        """
+        Getter and setter methods of the name property.
+        """
+        return self._name
+    
+    @name.setter
+    def executionTime(self, name):
+        self._name = name        
+        
     @property
     def executionTime(self):
         """
