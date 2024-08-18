@@ -123,7 +123,7 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
                                 resultsStats.results[indexCorr] = None
                                 resultsStats.geneInteractionsIndex[indexCorr] = None
                 
-                elif methodValue.lower()=="mi":  # NMI              
+                elif methodValue.lower()=="mi":  # MI              
                     resultsStats = bs.mi(dataset)                
                     results = resultsStats.results
                     
