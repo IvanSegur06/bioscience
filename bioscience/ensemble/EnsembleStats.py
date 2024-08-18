@@ -17,11 +17,11 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
         if methods == "ordinal":
             methods = np.array(["kendall","spearman","hoeffdingsD","wrc","tabwilr"])
         elif methods == "continuous":
-            methods = np.array(["pearson","distcorr","mcd","q","median","mi","pc","biweight","cca"])
+            methods = np.array(["pearson","distcorr","mcd","q","median","pc","biweight","cca"])
         elif methods == "dicotomic":
             methods = np.array(["mcc","pbc","phi","log-odds"])
         elif methods == "mixed":
-            methods = np.array(["nmi","mifs","chi-squared","adjusted-rand","contigency"])
+            methods = np.array(["mi","nmi","mifs","chi-squared","adjusted-rand","contigency"])
         elif methods == "distance":
             methods == np.array(["euclidean","manhattan","mahalanobis","jaccard","cos","taba","tabwil","tabwilr"])
         elif methods == "parametric":
@@ -111,6 +111,20 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
                 
                 elif methodValue.lower()=="pearson":  # NMI              
                     resultsStats = bs.pearson(dataset)                
+                    results = resultsStats.results
+                    
+                    # Transform correlation values to range from 0 to 1.
+                    for indexCorr, valueCorr in enumerate(results):
+                        if valueCorr != None and not np.isnan(valueCorr):                        
+                            if valueCorr < 0:
+                                resultsStats.results[indexCorr] = resultsStats.results[indexCorr] * -1
+                            
+                            if resultsStats.results[indexCorr] < thresholdValue:
+                                resultsStats.results[indexCorr] = None
+                                resultsStats.geneInteractionsIndex[indexCorr] = None
+                
+                elif methodValue.lower()=="mi":  # NMI              
+                    resultsStats = bs.mi(dataset)                
                     results = resultsStats.results
                     
                     # Transform correlation values to range from 0 to 1.
