@@ -15,11 +15,12 @@ from .models import (
 )
 
 from .constants import (
-    SPEARMAN,
-    KENDALL,
-    NMI,
     HOEFFDINGS,
-    PEARSON
+    KENDALL,
+    MI,    
+    NMI,    
+    PEARSON,
+    SPEARMAN
 )
 
 __all__ = [
@@ -36,9 +37,10 @@ __all__ = [
     "saveGenes",
     "saveBinaryDatasets",
     # Constants
-    "SPEARMAN",
-    "KENDALL",
-    "NMI",
     "HOEFFDINGS",
-    "PEARSON"      
+    "KENDALL",
+    "MI",
+    "NMI",    
+    "PEARSON",
+    "SPEARMAN"   
 ]
