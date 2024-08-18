@@ -17,6 +17,7 @@ from .models import (
 from .constants import (
     HOEFFDINGS,
     KENDALL,
+    MEDIAN,
     MI,    
     NMI,    
     PEARSON,
@@ -39,6 +40,7 @@ __all__ = [
     # Constants
     "HOEFFDINGS",
     "KENDALL",
+    "MEDIAN",
     "MI",
     "NMI",    
     "PEARSON",

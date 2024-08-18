@@ -90,5 +90,5 @@ def __medianSequential(dataset, debug):
         end_time = time.time()
         fExecutionTime = end_time - start_time
     
-    oCorrelationResults = CorrelationModel(name=PEARSON, results=resultsCorrelation, rows = iRows, executionTime=fExecutionTime)
+    oCorrelationResults = CorrelationModel(name=MEDIAN, results=resultsCorrelation, rows = iRows, executionTime=fExecutionTime)
     return oCorrelationResults

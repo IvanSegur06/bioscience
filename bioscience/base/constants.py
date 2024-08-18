@@ -1,6 +1,7 @@
 # Correlation methods
 HOEFFDINGS = "Hoeffdings'D"
 KENDALL = "Kendall"
+MEDIAN = "Median"
 MI = "Mutual Information (MI)"
 NMI = "Normalized Mutual Information (NMI)"
 PEARSON = "Pearson"
