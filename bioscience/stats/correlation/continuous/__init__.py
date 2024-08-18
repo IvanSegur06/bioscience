@@ -6,9 +6,15 @@ from .Median import (
     median
 )
 
+from .Quadrant import (
+    quadrant
+)
+
 __all__ = [
     # Pearson.py
     "pearson",
     # Median.py
-    "median"
+    "median",
+    # Quadrant.py
+    "quadrant"
 ]
