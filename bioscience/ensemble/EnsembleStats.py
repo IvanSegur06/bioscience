@@ -213,6 +213,21 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
                             if resultsStats.results[indexCorr] < thresholdValue:
                                 resultsStats.results[indexCorr] = None
                                 resultsStats.geneInteractionsIndex[indexCorr] = None
+                
+                elif methodValue.lower()=="phi":  # Phi coefficient
+                    resultsStats = bs.phi(dataset)                
+                    results = resultsStats.results
+                    
+                    # Transform correlation values to range from 0 to 1.
+                    for indexCorr, valueCorr in enumerate(results):
+                        if valueCorr != None and not np.isnan(valueCorr):
+                                                        
+                            if valueCorr < 0:
+                                resultsStats.results[indexCorr] = resultsStats.results[indexCorr] * -1
+                            
+                            if resultsStats.results[indexCorr] < thresholdValue:
+                                resultsStats.results[indexCorr] = None
+                                resultsStats.geneInteractionsIndex[indexCorr] = None
                                                  
                 else:
                     resultsStats = -1
