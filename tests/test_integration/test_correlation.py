@@ -63,7 +63,11 @@ resultsCorrelation = bs.median(dataset)
 print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)
 
-resultsCorrelation = bs.quadrant(dataset)
+resultsCorrelation = bs.q(dataset)
+print(resultsCorrelation.results)
+#print(resultsCorrelation.geneInteractionsIndex)
+
+resultsCorrelation = bs.distcorr(dataset)
 print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)"""
 
@@ -71,8 +75,8 @@ print(resultsCorrelation.results)
 #stats = bs.ensembleStats(dataset, methods="ordinal",thresholds=np.array([0.5,0,0]))
 #stats = bs.ensembleStats(dataset, methods="ordinal",thresholds=0)
 
-for index, resultsStats in enumerate(stats):
-    print(f"Indice: {index} - Name: {resultsStats.name} - Results: {resultsStats.results}")
+"""for index, resultsStats in enumerate(stats):
+    print(f"Indice: {index} - Name: {resultsStats.name} - Results: {resultsStats.results}")"""
 
 ###################
 # 3) Data mining 

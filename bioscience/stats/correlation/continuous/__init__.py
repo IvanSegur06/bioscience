@@ -7,7 +7,11 @@ from .Median import (
 )
 
 from .Quadrant import (
-    quadrant
+    q
+)
+
+from .DistCorr import (
+    distcorr
 )
 
 __all__ = [
@@ -16,5 +20,7 @@ __all__ = [
     # Median.py
     "median",
     # Quadrant.py
-    "quadrant"
+    "q",
+    # Distcorr.py
+    "distcorr"
 ]
