@@ -1,4 +1,5 @@
 # Correlation methods
+DISTCORR = "Distance Correlation (distcorr)"
 HOEFFDINGS = "Hoeffdings'D"
 KENDALL = "Kendall"
 MEDIAN = "Median"

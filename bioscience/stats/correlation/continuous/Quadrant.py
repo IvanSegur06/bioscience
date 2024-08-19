@@ -8,7 +8,7 @@ import warnings
 import numpy as np
 import time
 
-def quadrant(dataset, deviceCount = 0, mode = 1, debug = False):
+def q(dataset, deviceCount = 0, mode = 1, debug = False):
     """
     Application of the quadrant (Q) metric.
     

@@ -15,6 +15,7 @@ from .models import (
 )
 
 from .constants import (
+    DISTCORR,
     HOEFFDINGS,
     KENDALL,
     MEDIAN,
@@ -39,6 +40,7 @@ __all__ = [
     "saveGenes",
     "saveBinaryDatasets",
     # Constants
+    "DISTCORR",
     "HOEFFDINGS",
     "KENDALL",
     "MEDIAN",
