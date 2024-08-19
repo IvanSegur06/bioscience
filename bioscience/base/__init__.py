@@ -21,7 +21,8 @@ from .constants import (
     MCC,
     MEDIAN,
     MI,    
-    NMI,    
+    NMI,  
+    PBC,  
     PEARSON,
     QUADRANT,
     SPEARMAN
@@ -48,6 +49,7 @@ __all__ = [
     "MEDIAN",
     "MI",
     "NMI",    
+    "PBC",
     "PEARSON",
     "QUADRANT",
     "SPEARMAN"   
