@@ -69,6 +69,10 @@ print(resultsCorrelation.results)
 
 resultsCorrelation = bs.distcorr(dataset)
 print(resultsCorrelation.results)
+#print(resultsCorrelation.geneInteractionsIndex)
+
+resultsCorrelation = bs.mcc(dataset)
+print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)"""
 
 #stats = bs.ensembleStats(dataset, methods=np.array(["kendall","spearman","hoeffdingsD","nmi","pearson","mi","median","q","distcorr"]),thresholds=np.array([0.5,0,0,0.1,0,0,0.6,0,0]))

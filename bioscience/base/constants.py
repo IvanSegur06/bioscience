@@ -2,6 +2,7 @@
 DISTCORR = "Distance Correlation (distcorr)"
 HOEFFDINGS = "Hoeffdings'D"
 KENDALL = "Kendall"
+MCC = "Matthews Correlation Coefficient (MCC)"
 MEDIAN = "Median"
 MI = "Mutual Information (MI)"
 NMI = "Normalized Mutual Information (NMI)"
