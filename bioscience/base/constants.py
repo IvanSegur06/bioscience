@@ -2,6 +2,7 @@
 DISTCORR = "Distance Correlation (distcorr)"
 HOEFFDINGS = "Hoeffdings'D"
 KENDALL = "Kendall"
+LOG_ODDS = "Log-odds ratio"
 MCC = "Matthews Correlation Coefficient (MCC)"
 MEDIAN = "Median"
 MI = "Mutual Information (MI)"

@@ -19,17 +19,17 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
         elif methods == "continuous":
             methods = np.array(["pearson","distcorr","mcd","q","median","pc","biweight","cca"])
         elif methods == "dicotomic":
-            methods = np.array(["mcc","pbc","log-odds"])
+            methods = np.array(["mcc","pbc","log_odds"])
         elif methods == "mixed":
             methods = np.array(["mi","nmi","mifs","chi-squared","adjusted-rand","contigency"])
         elif methods == "distance":
             methods == np.array(["euclidean","manhattan","mahalanobis","jaccard","cos","taba","tabwil","tabwilr"])
         elif methods == "parametric":
-            methods = np.array(["pearson","mcc","cca","log-odds","pc","euclidean","mahalanobis","chi-squared"])
+            methods = np.array(["pearson","mcc","cca","log_odds","pc","euclidean","mahalanobis","chi-squared"])
         elif methods == "non-parametric":
             methods = np.array(["kendall","spearman","tabwilr","hoeffdingsD","distcorr","mcd","q","median","mi","nmi","mifs","biweight","adjusted-rand","contingency","manhattan","cos","jaccard"])
         elif methods == "lineal":
-            methods = np.array(["pearson","mcc","pc","cca","log-odds"])
+            methods = np.array(["pearson","mcc","pc","cca","log_odds"])
         elif methods == "non-lineal":
             methods = np.array(["distcorr","mi","nmi","mifs","hoeffdingsD"])
         elif methods == "ranks":
