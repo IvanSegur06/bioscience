@@ -24,7 +24,6 @@ from .constants import (
     NMI,  
     PBC,  
     PEARSON,
-    PHI,
     QUADRANT,
     SPEARMAN
 )
@@ -52,7 +51,6 @@ __all__ = [
     "NMI",    
     "PBC",
     "PEARSON",
-    "PHI",
     "QUADRANT",
     "SPEARMAN"   
 ]
