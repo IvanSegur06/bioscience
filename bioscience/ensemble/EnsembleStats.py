@@ -19,17 +19,17 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
         elif methods == "continuous":
             methods = np.array(["pearson","distcorr","mcd","q","median","pc","biweight","cca"])
         elif methods == "dicotomic":
-            methods = np.array(["mcc","pbc","phi","log-odds"])
+            methods = np.array(["mcc","pbc","log-odds"])
         elif methods == "mixed":
             methods = np.array(["mi","nmi","mifs","chi-squared","adjusted-rand","contigency"])
         elif methods == "distance":
             methods == np.array(["euclidean","manhattan","mahalanobis","jaccard","cos","taba","tabwil","tabwilr"])
         elif methods == "parametric":
-            methods = np.array(["pearson","phi","cca","log-odds","pc","euclidean","mahalanobis","chi-squared"])
+            methods = np.array(["pearson","mcc","cca","log-odds","pc","euclidean","mahalanobis","chi-squared"])
         elif methods == "non-parametric":
             methods = np.array(["kendall","spearman","tabwilr","hoeffdingsD","distcorr","mcd","q","median","mi","nmi","mifs","biweight","adjusted-rand","contingency","manhattan","cos","jaccard"])
         elif methods == "lineal":
-            methods = np.array(["pearson","phi","pc","cca","log-odds"])
+            methods = np.array(["pearson","mcc","pc","cca","log-odds"])
         elif methods == "non-lineal":
             methods = np.array(["distcorr","mi","nmi","mifs","hoeffdingsD"])
         elif methods == "ranks":
@@ -201,21 +201,6 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
                 
                 elif methodValue.lower()=="pbc":  # Point-biserial correlation (PBC)
                     resultsStats = bs.pbc(dataset)                
-                    results = resultsStats.results
-                    
-                    # Transform correlation values to range from 0 to 1.
-                    for indexCorr, valueCorr in enumerate(results):
-                        if valueCorr != None and not np.isnan(valueCorr):
-                                                        
-                            if valueCorr < 0:
-                                resultsStats.results[indexCorr] = resultsStats.results[indexCorr] * -1
-                            
-                            if resultsStats.results[indexCorr] < thresholdValue:
-                                resultsStats.results[indexCorr] = None
-                                resultsStats.geneInteractionsIndex[indexCorr] = None
-                
-                elif methodValue.lower()=="phi":  # Phi coefficient
-                    resultsStats = bs.phi(dataset)                
                     results = resultsStats.results
                     
                     # Transform correlation values to range from 0 to 1.
