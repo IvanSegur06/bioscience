@@ -84,7 +84,7 @@ print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)"""
 
 
-#stats = bs.ensembleStats(dataset, methods=np.array(["kendall","spearman","hoeffdingsD","nmi","pearson","mi","median","q","distcorr","mcc","pbc"]),thresholds=np.array([0.5,0,0,0.1,0,0,0.6,0,0,0,0]))
+#stats = bs.ensembleStats(dataset, methods=np.array(["kendall","spearman","hoeffdingsD","nmi","pearson","mi","median","q","distcorr","mcc","pbc","log_odds"]),thresholds=np.array([0.5,0,0,0.1,0,0,0.6,0,0,0,0,0]))
 #stats = bs.ensembleStats(dataset, methods="ordinal",thresholds=np.array([0.5,0,0]))
 #stats = bs.ensembleStats(dataset, methods="ordinal",thresholds=0)
 
