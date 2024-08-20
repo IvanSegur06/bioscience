@@ -77,6 +77,10 @@ print(resultsCorrelation.results)
 
 resultsCorrelation = bs.pbc(dataset)
 print(resultsCorrelation.results)
+#print(resultsCorrelation.geneInteractionsIndex)
+
+resultsCorrelation = bs.log_odds(dataset)
+print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)"""
 
 
