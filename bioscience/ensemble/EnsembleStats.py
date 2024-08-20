@@ -213,6 +213,23 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
                             if resultsStats.results[indexCorr] < thresholdValue:
                                 resultsStats.results[indexCorr] = None
                                 resultsStats.geneInteractionsIndex[indexCorr] = None
+                                
+                elif methodValue.lower()=="log_odds":  # log-odds ratio
+                    resultsStats = bs.log_odds(dataset)                
+                    results = resultsStats.results
+                    
+                    minValue = np.min(results)
+                    maxValue = np.max(results)
+                    
+                    # Transform correlation values to range from 0 to 1.
+                    for indexCorr, valueCorr in enumerate(results):
+                        if valueCorr != None and not np.isnan(valueCorr):
+                                                        
+                            normValue = (valueCorr - minValue) / (maxValue - minValue)
+                            
+                            if normValue < thresholdValue:
+                                resultsStats.results[indexCorr] = None
+                                resultsStats.geneInteractionsIndex[indexCorr] = None
                                                  
                 else:
                     resultsStats = -1
