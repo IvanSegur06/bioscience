@@ -258,6 +258,23 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
                             if resultsStats.results[indexCorr] < thresholdValue:
                                 resultsStats.results[indexCorr] = None
                                 resultsStats.geneInteractionsIndex[indexCorr] = None
+                
+                elif methodValue.lower()=="manhattan":  # Manhattan
+                    resultsStats = bs.manhattan(dataset)                
+                    results = resultsStats.results
+                    
+                    minValue = 0
+                    maxValue = dataset.data.shape[1]
+                    
+                    # Transform correlation values to range from 0 to 1.
+                    for indexCorr, valueCorr in enumerate(results):
+                        if valueCorr != None and not np.isnan(valueCorr):
+                                                        
+                            normValue = (valueCorr - minValue) / (maxValue - minValue)
+                            
+                            if normValue < thresholdValue:
+                                resultsStats.results[indexCorr] = None
+                                resultsStats.geneInteractionsIndex[indexCorr] = None
                                                  
                 else:
                     resultsStats = -1
