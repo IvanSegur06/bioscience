@@ -27,7 +27,8 @@ from .constants import (
     PBC,  
     PEARSON,
     QUADRANT,
-    SPEARMAN
+    SPEARMAN,
+    WEIGHTEDJACCARD
 )
 
 __all__ = [
@@ -56,5 +57,6 @@ __all__ = [
     "PBC",
     "PEARSON",
     "QUADRANT",
-    "SPEARMAN"   
+    "SPEARMAN",
+    "WEIGHTEDJACCARD" 
 ]
