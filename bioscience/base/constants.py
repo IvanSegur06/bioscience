@@ -1,6 +1,7 @@
 # Correlation methods
 DISTCORR = "Distance Correlation (distcorr)"
 HOEFFDINGS = "Hoeffdings'D"
+JACCARD = "Jaccard index"
 KENDALL = "Kendall"
 LOG_ODDS = "Log-odds ratio"
 MCC = "Matthews Correlation Coefficient (MCC)"
