@@ -23,7 +23,7 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
         elif methods == "mixed":
             methods = np.array(["mi","nmi","mifs","chi-squared","adjusted-rand","contigency"])
         elif methods == "distance":
-            methods == np.array(["euclidean","manhattan","mahalanobis","jaccard","cos","taba","tabwil","tabwilr"])
+            methods == np.array(["euclidean","manhattan","mahalanobis","jaccard","wjaccard","cos","taba","tabwil","tabwilr"])
         elif methods == "parametric":
             methods = np.array(["pearson","mcc","cca","log_odds","pc","euclidean","mahalanobis","chi-squared"])
         elif methods == "non-parametric":
@@ -233,6 +233,20 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
                 
                 elif methodValue.lower()=="jaccard":  # Jaccard
                     resultsStats = bs.jaccard(dataset)                
+                    results = resultsStats.results
+                    
+                    # Transform correlation values to range from 0 to 1.
+                    for indexCorr, valueCorr in enumerate(results):
+                        if valueCorr != None and not np.isnan(valueCorr):                        
+                            if valueCorr < 0:
+                                resultsStats.results[indexCorr] = resultsStats.results[indexCorr] * -1
+                            
+                            if resultsStats.results[indexCorr] < thresholdValue:
+                                resultsStats.results[indexCorr] = None
+                                resultsStats.geneInteractionsIndex[indexCorr] = None
+                
+                elif methodValue.lower()=="wjaccard":  # Weighted Jaccard
+                    resultsStats = bs.weightedJaccard(dataset)                
                     results = resultsStats.results
                     
                     # Transform correlation values to range from 0 to 1.
