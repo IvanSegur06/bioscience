@@ -17,11 +17,12 @@ from .models import (
 from .constants import (
     DISTCORR,
     HOEFFDINGS,
+    JACCARD,
     KENDALL,
     LOG_ODDS,
     MCC,
     MEDIAN,
-    MI,    
+    MI,
     NMI,  
     PBC,  
     PEARSON,
@@ -45,6 +46,7 @@ __all__ = [
     # Constants
     "DISTCORR",
     "HOEFFDINGS",
+    "JACCARD",
     "KENDALL",
     "LOG_ODDS",
     "MCC",
