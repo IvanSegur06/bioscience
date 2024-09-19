@@ -8,6 +8,7 @@ NUMBA_MIN_VERSION = "0.60.0"
 PYTEST_MIN_VERSION = "8.3.2"
 SEABORN_MIN_VERSION = "0.13.2"
 MATPLOTLIB_MIN_VERSION = "3.9.0"
+SETUPTOOLS_MIN_VERSION = "75.1.0"
 
 dependent_packages = {
     "numpy": (NUMPY_MIN_VERSION, "build, install"),
@@ -16,6 +17,7 @@ dependent_packages = {
     "numba": (NUMBA_MIN_VERSION, "build, install"),
     "seaborn": (SEABORN_MIN_VERSION, "build, install"),
     "matplotlib": (MATPLOTLIB_MIN_VERSION, "build, install"),
+    "setuptools": (SETUPTOOLS_MIN_VERSION, "build, install"),
     "pytest": (PYTEST_MIN_VERSION, "tests"),
     "pytest-cov": ("2.9.0", "tests"),
 }

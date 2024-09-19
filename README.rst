@@ -70,6 +70,7 @@ Alternatively, you could clone and run setup.py file:
 * **numba**>=0.60.0
 * **seaborn**>=0.13.2
 * **matplotlib**>=3.9.0
+* **setuptools**>=75.1.0
 
 ----
 
