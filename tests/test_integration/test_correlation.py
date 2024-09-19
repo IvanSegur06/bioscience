@@ -7,6 +7,7 @@ import numpy as np
 # 1.1) Binary dataset load
 #dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # Linux
 #dataset = bs.load(path="C:/Users/aurel/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # Windows
+#dataset = bs.load(path="/Users/aurelio/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # macOS
 
 # 1.2) Non-binary dataset load
 #dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/synthetic3.txt", index_gene=0, naFilter=True, head = 0)
