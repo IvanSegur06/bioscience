@@ -10,11 +10,17 @@ from .Manhattan import (
     manhattan
 )
 
+from .Euclidean import (
+    euclidean
+)
+
 __all__ = [
     # Jaccard.py
     "jaccard",
     # WeightedJaccard.py
     "weightedJaccard",
     # Manhattan.py
-    "manhattan"
+    "manhattan",
+    # Euclidean.py
+    "euclidean"
 ]
