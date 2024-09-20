@@ -7,7 +7,7 @@ import numpy as np
 # 1.1) Binary dataset load
 #dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # Linux
 #dataset = bs.load(path="C:/Users/aurel/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # Windows
-#dataset = bs.load(path="/Users/aurelio/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # macOS
+dataset = bs.load(path="/Users/aurelio/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # macOS
 
 # 1.2) Non-binary dataset load
 #dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/synthetic3.txt", index_gene=0, naFilter=True, head = 0)
@@ -96,6 +96,10 @@ print(resultsCorrelation.results)
 resultsCorrelation = bs.manhattan(dataset)
 print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)"""
+
+resultsCorrelation = bs.euclidean(dataset)
+print(resultsCorrelation.results)
+#print(resultsCorrelation.geneInteractionsIndex)
 
 
 #stats = bs.ensembleStats(dataset, methods=np.array(["kendall","spearman","hoeffdingsD","nmi","pearson","mi","median","q","distcorr","mcc","pbc","log_odds","jaccard","wjaccard","manhattan"]),thresholds=np.array([0.5,0,0,0.1,0,0,0.6,0,0,0,0,0,0,0,0]))

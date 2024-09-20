@@ -1,5 +1,6 @@
 # Correlation methods
 DISTCORR = "Distance Correlation (distcorr)"
+EUCLIDEAN = "Euclidean distance"
 HOEFFDINGS = "Hoeffdings'D"
 JACCARD = "Jaccard index"
 KENDALL = "Kendall"

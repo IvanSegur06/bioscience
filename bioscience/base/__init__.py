@@ -16,6 +16,7 @@ from .models import (
 
 from .constants import (
     DISTCORR,
+    EUCLIDEAN,
     HOEFFDINGS,
     JACCARD,
     KENDALL,
@@ -47,6 +48,7 @@ __all__ = [
     "saveBinaryDatasets",
     # Constants
     "DISTCORR",
+    "EUCLIDEAN",
     "HOEFFDINGS",
     "JACCARD",
     "KENDALL",
