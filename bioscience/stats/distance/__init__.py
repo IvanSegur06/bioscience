@@ -14,6 +14,10 @@ from .Euclidean import (
     euclidean
 )
 
+from .Cosine import (
+    cos
+)
+
 __all__ = [
     # Jaccard.py
     "jaccard",
@@ -22,5 +26,7 @@ __all__ = [
     # Manhattan.py
     "manhattan",
     # Euclidean.py
-    "euclidean"
+    "euclidean",
+    # Cosine.py
+    "cos"
 ]

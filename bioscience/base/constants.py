@@ -1,4 +1,5 @@
 # Correlation methods
+COSINE = "Cosine Similarity"
 DISTCORR = "Distance Correlation (distcorr)"
 EUCLIDEAN = "Euclidean distance"
 HOEFFDINGS = "Hoeffdings'D"
