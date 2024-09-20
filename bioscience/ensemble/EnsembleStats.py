@@ -266,6 +266,26 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
                     minValue = 0
                     maxValue = dataset.data.shape[1]
                     
+                    print(results)
+                    
+                    # Transform correlation values to range from 0 to 1.
+                    for indexCorr, valueCorr in enumerate(results):
+                        if valueCorr != None and not np.isnan(valueCorr):
+                                                        
+                            normValue = (valueCorr - minValue) / (maxValue - minValue)
+                            print(normValue)
+                            
+                            if normValue < thresholdValue:
+                                resultsStats.results[indexCorr] = None
+                                resultsStats.geneInteractionsIndex[indexCorr] = None
+                
+                elif methodValue.lower()=="euclidean":  # Euclidean
+                    resultsStats = bs.euclidean(dataset)                
+                    results = resultsStats.results
+                    
+                    minValue = np.min(results)
+                    maxValue = np.max(results)
+                    
                     # Transform correlation values to range from 0 to 1.
                     for indexCorr, valueCorr in enumerate(results):
                         if valueCorr != None and not np.isnan(valueCorr):
