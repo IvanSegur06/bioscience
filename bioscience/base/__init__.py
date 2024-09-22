@@ -15,6 +15,7 @@ from .models import (
 )
 
 from .constants import (
+    ARI,
     COSINE,
     DISTCORR,
     EUCLIDEAN,
@@ -48,6 +49,7 @@ __all__ = [
     "saveGenes",
     "saveBinaryDatasets",
     # Constants
+    "ARI",
     "COSINE",
     "DISTCORR",
     "EUCLIDEAN",
