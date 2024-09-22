@@ -21,13 +21,13 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
         elif methods == "dicotomic":
             methods = np.array(["mcc","pbc","log_odds"])
         elif methods == "mixed":
-            methods = np.array(["mi","nmi","mifs","chi-squared","adjusted-rand","contigency"])
+            methods = np.array(["mi","nmi","mifs","chi-squared","ari","contigency"])
         elif methods == "distance":
             methods == np.array(["euclidean","manhattan","mahalanobis","jaccard","wjaccard","cos","taba","tabwil","tabwilr"])
         elif methods == "parametric":
             methods = np.array(["pearson","mcc","cca","log_odds","pc","euclidean","mahalanobis","chi-squared"])
         elif methods == "non-parametric":
-            methods = np.array(["kendall","spearman","tabwilr","hoeffdingsD","distcorr","mcd","q","median","mi","nmi","mifs","biweight","adjusted-rand","contingency","manhattan","cos","jaccard"])
+            methods = np.array(["kendall","spearman","tabwilr","hoeffdingsD","distcorr","mcd","q","median","mi","nmi","mifs","biweight","ari","contingency","manhattan","cos","jaccard"])
         elif methods == "lineal":
             methods = np.array(["pearson","mcc","pc","cca","log_odds"])
         elif methods == "non-lineal":
@@ -35,7 +35,7 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
         elif methods == "ranks":
             methods = np.array(["kendall","spearman","tabwilr","wrc"])
         elif methods == "dataMixed":
-            methods = np.array(["chi-squared","adjusted-rand","contingency"])
+            methods = np.array(["chi-squared","ari","contingency"])
         elif methods == "similarity":
             methods = np.array(["euclidean","manhattan","mahalanobis","cos","jaccard"])
         else:
@@ -293,6 +293,20 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
                             normValue = (valueCorr - minValue) / (maxValue - minValue)
                             
                             if normValue < thresholdValue:
+                                resultsStats.results[indexCorr] = None
+                                resultsStats.geneInteractionsIndex[indexCorr] = None
+                
+                elif methodValue.lower()=="cos":  # Cosine similarity
+                    resultsStats = bs.cos(dataset)                
+                    results = resultsStats.results
+                    
+                    # Transform correlation values to range from 0 to 1.
+                    for indexCorr, valueCorr in enumerate(results):
+                        if valueCorr != None and not np.isnan(valueCorr):                        
+                            if valueCorr < 0:
+                                resultsStats.results[indexCorr] = resultsStats.results[indexCorr] * -1
+                            
+                            if resultsStats.results[indexCorr] < thresholdValue:
                                 resultsStats.results[indexCorr] = None
                                 resultsStats.geneInteractionsIndex[indexCorr] = None
                                                  

@@ -103,10 +103,14 @@ print(resultsCorrelation.results)
 
 resultsCorrelation = bs.cos(dataset)
 print(resultsCorrelation.results)
+#print(resultsCorrelation.geneInteractionsIndex)
+
+resultsCorrelation = bs.ari(dataset)
+print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)"""
 
 
-#stats = bs.ensembleStats(dataset, methods=np.array(["kendall","spearman","hoeffdingsD","nmi","pearson","mi","median","q","distcorr","mcc","pbc","log_odds","jaccard","wjaccard","manhattan","euclidean"]),thresholds=np.array([0.5,0,0,0.1,0,0,0.6,0,0,0,0,0,0,0,0,0]))
+#stats = bs.ensembleStats(dataset, methods=np.array(["kendall","spearman","hoeffdingsD","nmi","pearson","mi","median","q","distcorr","mcc","pbc","log_odds","jaccard","wjaccard","manhattan","euclidean","cos"]),thresholds=np.array([0.5,0,0,0.1,0,0,0.6,0,0,0,0,0,0,0,0,0,0]))
 #stats = bs.ensembleStats(dataset, methods="ordinal",thresholds=np.array([0.5,0,0]))
 #stats = bs.ensembleStats(dataset, methods="ordinal",thresholds=0)
 
