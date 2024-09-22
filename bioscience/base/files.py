@@ -5,12 +5,15 @@ import os
 
 from .models import *
 
-def load(path, separator = "\t", skipr = 0, naFilter = False, index_gene = -1, index_lengths = -1, head = None) -> pd.DataFrame:
+def load(db, email = None, separator = "\t", skipr = 0, naFilter = False, index_gene = -1, index_lengths = -1, head = None) -> pd.DataFrame:
     """
     Load any data from a txt or csv file. (Reuse function)
     
-    :param file_path: The path where the file is stored.
-    :type file_path: str
+    :param db: The path where the file is stored or ID database
+    :type db: str
+    
+    :param email: Email used to connect NCBI database.
+    :type email: str
         
     :param separator: An attribute indicating how the columns of the file are separated.
     :type separator: str,optional
@@ -34,37 +37,56 @@ def load(path, separator = "\t", skipr = 0, naFilter = False, index_gene = -1, i
     :rtype: :class:`bioscience.base.models.Dataset`
     """
     dataset = None
-    if path is not None:
+    if db is not None:
         extensionsCsv = [".txt",".csv",".tsv"]    
-        fileName, fileExtension = os.path.splitext(path)
+        fileName, fileExtension = os.path.splitext(db)
         if fileExtension in extensionsCsv:
-            if naFilter is True:
-                dfPandas = pd.read_csv(path, sep=separator, skiprows = skipr, na_filter=naFilter, header = head).fillna(0)
-            else:
-                dfPandas = pd.read_csv(path, sep=separator, skiprows = skipr, header = head)
-            
-            dataColumns = np.asarray(dfPandas.columns)
-            dataset = np.asarray(dfPandas)
-            # Dataset object
-            geneNames = None
-            lengths = None
-            
-            # Get gene names from dataset
-            if index_gene >= 0:
-                index_lengths = index_lengths -1 # Update gene lengths index due to remove the gene column of the dataset.
-                geneNames = dataset[:,index_gene]
-                dataset = np.delete(dataset, index_gene, 1)                
-            
-            # Get lengths from dataset
-            if index_lengths >= 0:
-                lengths = dataset[:,index_lengths]
-                dataset = np.delete(dataset, index_lengths, 1)
-                
-            
-            dataColumns = np.delete(dataColumns, np.arange(0, 1 + index_gene))         
-            return Dataset(dataset.astype(np.double), geneNames=geneNames, columnsNames=dataColumns, lengths=lengths)
+            return __loadSpecificFile(db, separator, skipr, naFilter, index_gene, index_lengths, head)
         else:
-            return None
+            if db is not None and email is not None:
+                __loadNcbiDb(db, email)
+                
+                
+            else:
+                return None
+
+def __loadSpecificFile(db, separator, skipr, naFilter, index_gene, index_lengths, head) -> pd.DataFrame:
+    if naFilter is True:
+        dfPandas = pd.read_csv(db, sep=separator, skiprows = skipr, na_filter=naFilter, header = head).fillna(0)
+    else:
+        dfPandas = pd.read_csv(db, sep=separator, skiprows = skipr, header = head)
+            
+    dataColumns = np.asarray(dfPandas.columns)
+    dataset = np.asarray(dfPandas)
+    # Dataset object
+    geneNames = None
+    lengths = None
+            
+    # Get gene names from dataset
+    if index_gene >= 0:
+        index_lengths = index_lengths -1 # Update gene lengths index due to remove the gene column of the dataset.
+        geneNames = dataset[:,index_gene]
+        dataset = np.delete(dataset, index_gene, 1)                
+            
+    # Get lengths from dataset
+    if index_lengths >= 0:
+        lengths = dataset[:,index_lengths]
+        dataset = np.delete(dataset, index_lengths, 1)                
+            
+    dataColumns = np.delete(dataColumns, np.arange(0, 1 + index_gene))         
+    return Dataset(dataset.astype(np.double), geneNames=geneNames, columnsNames=dataColumns, lengths=lengths)
+
+def __loadNcbiDb(geo_id, email):
+    client = NCBIClient(email)
+    prueba = client.fetch_geo_data_by_accession(geo_id)
+    
+    print(prueba)
+    
+    
+    #xml_data = client.fetch_geo_data(geo_id)
+    
+    #if xml_data:
+    #    client.parse_geo_data(xml_data)
 
 def saveResultsIndex(path, models):    
     """

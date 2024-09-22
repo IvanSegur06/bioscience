@@ -7,6 +7,7 @@ from .files import (
 )
 
 from .models import (
+    NCBIClient,
     Dataset,
     Validation,
     Bicluster,
@@ -16,6 +17,7 @@ from .models import (
 
 from .constants import (
     ARI,
+    CC,
     COSINE,
     DISTCORR,
     EUCLIDEAN,
@@ -37,6 +39,7 @@ from .constants import (
 
 __all__ = [
     # Classes
+    "NCBIClient",
     "Dataset",
     "Validation",
     "Bicluster",
@@ -50,6 +53,7 @@ __all__ = [
     "saveBinaryDatasets",
     # Constants
     "ARI",
+    "CC",
     "COSINE",
     "DISTCORR",
     "EUCLIDEAN",

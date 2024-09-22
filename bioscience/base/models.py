@@ -1,4 +1,6 @@
 import numpy as np
+import requests
+from xml.etree import ElementTree
 
 class Dataset:
     """
@@ -124,6 +126,121 @@ class Dataset:
     
     def __hash__(self):
         return 1
+
+class NCBIClient:
+    BASE_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+    EMAIL = ""
+
+    def __init__(self, email=None):
+        if email:
+            self.EMAIL = email
+
+    def search_geo(self, geo_id):
+        """Busca un ID de GEO en la base de datos y devuelve el ID relacionado"""
+        params = {
+            "db": "gds",
+            "term": geo_id,
+            "retmode": "json",
+            "email": self.EMAIL
+        }
+
+        response = requests.get(self.BASE_URL + "esearch.fcgi", params=params)
+
+        if response.status_code == 200:
+            data = response.json()
+            if data['esearchresult']['idlist']:
+                return data['esearchresult']['idlist'][0]
+            else:
+                print("No se encontró información para el ID proporcionado.")
+                return None
+        else:
+            print(f"Error en la solicitud: {response.status_code}")
+            return None
+
+    def fetch_geo_data(self, geo_id):
+        """Descarga los datos completos de GEO para un ID específico"""
+        geo_record_id = self.search_geo(geo_id)
+
+        if geo_record_id:
+            params = {
+                "db": "gds",
+                "id": geo_record_id,
+                "retmode": "xml",
+                "email": self.EMAIL
+            }
+
+            response = requests.get(self.BASE_URL + "efetch.fcgi", params=params)
+
+            if response.status_code == 200:
+                with open(f"{geo_id}_data.xml", "w") as file:
+                    file.write(response.text)
+                print(f"Datos guardados en {geo_id}_data.xml")
+
+                return ElementTree.fromstring(response.content)
+            else:
+                print(f"Error al descargar los datos: {response.status_code}")
+        else:
+            print("No se pudo obtener el ID de GEO.")
+
+    
+    def fetch_geo_data_by_accession(self, accession_number):
+        """Obtiene los datos de GEO utilizando el Accession Number (ej. GSE17674)"""
+        params = {
+            "db": "gds",  
+            "term": accession_number,  
+            "retmode": "xml",  
+            "email": self.EMAIL
+        }
+
+        response = requests.get(self.BASE_URL + "esearch.fcgi", params=params)
+
+        if response.status_code == 200:
+            data = response.text
+            if '<IdList>' in data:
+                print(f"Accession Number {accession_number} encontrado.")
+                
+                start = data.find("<Id>")
+                end = data.find("</Id>", start)
+                geo_record_id = data[start + 4:end]
+                
+                print(f"ID de GEO: {geo_record_id}")
+
+                return self.fetch_geo_data_by_id(geo_record_id)
+            else:
+                print(f"No se encontró información para el Accession Number: {accession_number}")
+                return None
+        else:
+            print(f"Error en la solicitud: {response.status_code}")
+            return None
+    
+    def fetch_geo_data_by_id(self, geo_record_id):
+        """Descarga los datos completos de GEO utilizando el ID"""
+        params = {
+            "db": "gds",
+            "id": geo_record_id,
+            "retmode": "xml",
+            "email": self.EMAIL
+        }
+
+        response = requests.get(self.BASE_URL + "efetch.fcgi", params=params)
+
+        if response.status_code == 200:
+            with open(f"{geo_record_id}_data.xml", "w") as file:
+                file.write(response.text)
+            print(f"Datos guardados en {geo_record_id}_data.xml")
+
+            return ElementTree.fromstring(response.content)
+        else:
+            print(f"Error al descargar los datos: {response.status_code}")
+            return None
+
+    def parse_geo_data(self, xml_data):
+        """Procesa los datos XML descargados y extrae información clave"""
+        for docsum in xml_data.findall(".//DocSum"):
+            title = docsum.find(".//Item[@Name='Title']").text
+            print(f"Título: {title}")
+
+
 
 class Validation:
     """

@@ -66,8 +66,8 @@ cmdclass = {
 }
 # Setting up
 def setup_package():
-    python_requires = ">=3.10"
-    required_python_version = (3, 10)
+    python_requires = ">=3.11"
+    required_python_version = (3, 11)
     metadata = dict(
         name=DISTNAME,
         maintainer=AUTHOR,

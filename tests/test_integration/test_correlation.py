@@ -5,15 +5,18 @@ import numpy as np
 # 1) Load dataset 
 ###################
 # 1.1) Binary dataset load
-dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # Linux
-#dataset = bs.load(path="C:/Users/aurel/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # Windows
-#dataset = bs.load(path="/Users/aurelio/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # macOS
+#dataset = bs.load(db="/home/principalpc/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # Linux
+#dataset = bs.load(db="C:/Users/aurel/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # Windows
+#dataset = bs.load(db="/Users/aurelio/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # macOS
+
+dataset = bs.load(db="GSE17674", email="miemail@ejemplo.com")
+print(dataset)
 
 # 1.2) Non-binary dataset load
-#dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/synthetic3.txt", index_gene=0, naFilter=True, head = 0)
+#dataset = bs.load(db="/home/principalpc/git-repositories/bioscience/datasets/synthetic3.txt", index_gene=0, naFilter=True, head = 0)
 
 # 1.3.) RNA-Seq dataset load
-#dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/rnaseq.txt", index_gene=0, index_lengths=1 ,naFilter=True, head = 0)
+#dataset = bs.load(db="/home/principalpc/git-repositories/bioscience/datasets/rnaseq.txt", index_gene=0, index_lengths=1 ,naFilter=True, head = 0)
 
 ###################
 # 2) Preprocessing
@@ -107,15 +110,19 @@ print(resultsCorrelation.results)
 
 resultsCorrelation = bs.ari(dataset)
 print(resultsCorrelation.results)
+#print(resultsCorrelation.geneInteractionsIndex)
+
+resultsCorrelation = bs.cc(dataset)
+print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)"""
 
 
-stats = bs.ensembleStats(dataset, methods=np.array(["kendall","spearman","hoeffdingsD","nmi","pearson","mi","median","q","distcorr","mcc","pbc","log_odds","jaccard","wjaccard","manhattan","euclidean","cos","ari"]),thresholds=np.array([0.5,0,0,0.1,0,0,0.6,0,0,0,0,0,0,0,0,0,0,0]))
+#stats = bs.ensembleStats(dataset, methods=np.array(["kendall","spearman","hoeffdingsD","nmi","pearson","mi","median","q","distcorr","mcc","pbc","log_odds","jaccard","wjaccard","manhattan","euclidean","cos","ari"]),thresholds=np.array([0.5,0,0,0.1,0,0,0.6,0,0,0,0,0,0,0,0,0,0,0]))
 #stats = bs.ensembleStats(dataset, methods="ordinal",thresholds=np.array([0.5,0,0]))
 #stats = bs.ensembleStats(dataset, methods="ordinal",thresholds=0)
 
-for index, resultsStats in enumerate(stats):
-    print(f"Indice: {index} - Name: {resultsStats.name} - Results: {resultsStats.results}")
+"""for index, resultsStats in enumerate(stats):
+    print(f"Indice: {index} - Name: {resultsStats.name} - Results: {resultsStats.results}")"""
 
 ###################
 # 3) Data mining 

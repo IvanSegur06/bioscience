@@ -36,3 +36,4 @@ or also run setup.py file:
     * **seaborn**>=0.13.2
     * **matplotlib**>=3.9.0
     * **setuptools**>=75.1.0
+    * **requests**>=2.32.3
