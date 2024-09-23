@@ -87,8 +87,6 @@ def __loadNcbiDb(idGeo, key = None):
     print("Database connected.")
     print("Getting information from the ",idGeo," database...")
     
-    print(idsByGeo)
-    
     summaryGeo = None
     iCount = 0
     while (iCount < len(idsByGeo) and summaryGeo == None):
@@ -97,13 +95,72 @@ def __loadNcbiDb(idGeo, key = None):
             time.sleep(1)
         iCount += 1
     
-    print(summaryGeo)    
-    print(iCount-1)
-    
-    print("Information obtained.")
-    
-    
-    
+    if summaryGeo is None:
+        print("ERROR: Information not obtained.")
+    else:
+        print("Information obtained.")
+        try:
+            sAccession = summaryGeo['accession']
+        except Exception:
+            sAccession = None
+            
+        try:
+            sTitle = summaryGeo['title']
+        except Exception:
+            sTitle = None
+        
+        try:
+            sSummary = summaryGeo['summary']
+        except Exception:
+            sSummary = None
+            
+        try:
+            sGPL = summaryGeo['gpl']
+        except Exception:
+            sGPL = None
+        
+        try:
+            sGSE = summaryGeo['gse']
+        except Exception:
+            sGSE = None
+        
+        try:
+            sTaxon = summaryGeo['taxon']
+        except Exception:
+            sTaxon = None
+        
+        try:
+            sGdsType = summaryGeo['gdstype']
+        except Exception:
+            sGdsType = None
+        
+        try:
+            sSuppFile = summaryGeo['suppfile']
+        except Exception:
+            sSuppFile = None
+        
+        try:
+            sNSamples = summaryGeo['n_samples']
+        except Exception:
+            sNSamples = None
+        
+        try:
+            sFTPLink = summaryGeo['ftplink']
+        except Exception:
+            sFTPLink = None
+        
+        try:
+            sBioProject = summaryGeo['bioproject']
+        except Exception:
+            sBioProject = None
+        
+        try:
+            aSamples = np.array([(item['accession'],item['title']) for item in summaryGeo['samples']])
+        except Exception:
+            aSamples = None
+             
+        infoDataset = NCBIDataset(accessionNumber = sAccession, title = sTitle, summary = sSummary, gpl = sGPL, gse = sGSE, taxonomy = sTaxon, gdstype = sGdsType, suppfile = sSuppFile, nSamples = sNSamples, link = sFTPLink, bioProject = sBioProject, samples = aSamples)
+        
     
     #xml_data = client.fetch_geo_data(geo_id)
     

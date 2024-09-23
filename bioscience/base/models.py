@@ -434,7 +434,7 @@ class NCBIClient:
                 accessionData = None
             
             if accessionData is not None and accessionData == self.idDB:            
-                summaryGeo = data
+                summaryGeo = data['result'][id]
         
         return summaryGeo
 
