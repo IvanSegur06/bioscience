@@ -2,18 +2,19 @@ from operator import index
 import numpy as np
 import pandas as pd
 import os
+import time
 
 from .models import *
 
-def load(db, email = None, separator = "\t", skipr = 0, naFilter = False, index_gene = -1, index_lengths = -1, head = None) -> pd.DataFrame:
+def load(db, apiKey = None, separator = "\t", skipr = 0, naFilter = False, index_gene = -1, index_lengths = -1, head = None) -> pd.DataFrame:
     """
     Load any data from a txt or csv file. (Reuse function)
     
     :param db: The path where the file is stored or ID database
     :type db: str
     
-    :param email: Email used to connect NCBI database.
-    :type email: str
+    :param apiKey: API Key NCBI
+    :type apiKey: str
         
     :param separator: An attribute indicating how the columns of the file are separated.
     :type separator: str,optional
@@ -43,10 +44,8 @@ def load(db, email = None, separator = "\t", skipr = 0, naFilter = False, index_
         if fileExtension in extensionsCsv:
             return __loadSpecificFile(db, separator, skipr, naFilter, index_gene, index_lengths, head)
         else:
-            if db is not None and email is not None:
-                __loadNcbiDb(db, email)
-                
-                
+            if db is not None:
+                __loadNcbiDb(db, key = apiKey)
             else:
                 return None
 
@@ -76,11 +75,34 @@ def __loadSpecificFile(db, separator, skipr, naFilter, index_gene, index_lengths
     dataColumns = np.delete(dataColumns, np.arange(0, 1 + index_gene))         
     return Dataset(dataset.astype(np.double), geneNames=geneNames, columnsNames=dataColumns, lengths=lengths)
 
-def __loadNcbiDb(geo_id, email):
-    client = NCBIClient(email)
-    prueba = client.fetch_geo_data_by_accession(geo_id)
+def __loadNcbiDb(idGeo, key = None):
+    client = NCBIClient(idDB = idGeo, apiKey = key)
+    print("Connecting NCBI database...")
+    idsByGeo = client.getIdsByGeo()
+    time.sleep(1)
+    if idsByGeo == None:
+        print("Unable to connect to the database.")
+        return None
     
-    print(prueba)
+    print("Database connected.")
+    print("Getting information from the ",idGeo," database...")
+    
+    print(idsByGeo)
+    
+    summaryGeo = None
+    iCount = 0
+    while (iCount < len(idsByGeo) and summaryGeo == None):
+        summaryGeo = client.getSummaryById(idsByGeo[iCount])
+        if summaryGeo == None:
+            time.sleep(1)
+        iCount += 1
+    
+    print(summaryGeo)    
+    print(iCount-1)
+    
+    print("Information obtained.")
+    
+    
     
     
     #xml_data = client.fetch_geo_data(geo_id)

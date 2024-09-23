@@ -127,38 +127,319 @@ class Dataset:
     def __hash__(self):
         return 1
 
-class NCBIClient:
-    BASE_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
-    EMAIL = ""
+class NCBIDataset:
+    
+    """
+    This is a concept class representing a information of NCBI dataset.
+    
+    :param accessionNumber: Accession number of the dataset.
+    :type accessionNumber: str
+        
+    :param data: This attribute is used to store the dataset once it has undergone the transformations desired by the user.
+    :type data: np.array
+         
+    :param geneNames: Array with the name of the genes involved in the dataset. If the dataset does not have the name of the genes, it shall be replaced by a set of sequential numbers.
+    :type geneNames: np.array, optional
+    
+    :param columnsNames: Array with the name of the columns involved in the dataset. If the dataset does not have the name of the columns, it shall be replaced by a set of sequential numbers.
+    :type columnsNames: np.array, optional
+    
+    :param lengths: Array with gene length value (RNA-Seq)
+    :type lengths: np.array, optional    
+    
+    :param annotations: Array that stores data from an annotation file for subsequent validation phases.
+    :type annotations: np.array, optional
+    
+    :param cut: Cut-off parameter used in level binarisation.
+    :type cut: float, optional
+    
+    """    
+    
+    def __init__(self, accessionNumber, title = None, summary = None, gpl = None, gse = None, taxonomy = None, gdstype = None, suppfile = None, nSamples = None, link = None, bioProject = None, samples = None):
+        """
+        Constructor method
+        """
+        self._accessionNumber = accessionNumber
+        self._title = title
+        self._summary = summary
+        self._gpl = gpl
+        self._gse = gse
+        self._taxonomy = taxonomy
+        self._gdstype = gdstype
+        self._suppfile = suppfile
+        self._nSamples = nSamples
+        self._link = link
+        self._bioProject = bioProject
+        self._samples = samples
+    
+    @property
+    def accessionNumber(self):
+        """
+        Getter and setter methods of the accessionNumber property.        
+        """
+        return self._accessionNumber
+    
+    @accessionNumber.setter
+    def accessionNumber(self, accessionNumber):
+        self._accessionNumber = accessionNumber
+    
+    @property
+    def title(self):
+        """
+        Getter and setter methods of the title property.        
+        """
+        return self._title
+    
+    @title.setter
+    def title(self, title):
+        self._title = title
+    
+    @property
+    def summary(self):
+        """
+        Getter and setter methods of the summary property.        
+        """
+        return self._summary
+    
+    @summary.setter
+    def summary(self, summary):
+        self._summary = summary
+    
+    @property
+    def gpl(self):
+        """
+        Getter and setter methods of the gpl property.        
+        """
+        return self._gpl
+    
+    @gpl.setter
+    def gpl(self, gpl):
+        self._gpl = gpl
+    
+    @property
+    def gse(self):
+        """
+        Getter and setter methods of the gse property.        
+        """
+        return self._gse
+    
+    @gse.setter
+    def gse(self, gse):
+        self._gse = gse
+    
+    @property
+    def taxonomy(self):
+        """
+        Getter and setter methods of the taxonomy property.        
+        """
+        return self._taxonomy
+    
+    @taxonomy.setter
+    def taxonomy(self, taxonomy):
+        self._taxonomy = taxonomy
+    
+    @property
+    def gdstype(self):
+        """
+        Getter and setter methods of the gdstype property.        
+        """
+        return self._gdstype
+    
+    @gdstype.setter
+    def gdstype(self, gdstype):
+        self._gdstype = gdstype
+    
+    @property
+    def suppfile(self):
+        """
+        Getter and setter methods of the suppfile property.        
+        """
+        return self._suppfile
+    
+    @suppfile.setter
+    def suppfile(self, suppfile):
+        self._suppfile = suppfile
+    
+    @property
+    def nSamples(self):
+        """
+        Getter and setter methods of the nSamples property.        
+        """
+        return self._nSamples
+    
+    @nSamples.setter
+    def nSamples(self, nSamples):
+        self._nSamples = nSamples
+    
+    @property
+    def link(self):
+        """
+        Getter and setter methods of the link property.        
+        """
+        return self._link
+    
+    @link.setter
+    def link(self, link):
+        self._link = link
+    
+    @property
+    def bioProject(self):
+        """
+        Getter and setter methods of the bioProject property.        
+        """
+        return self._bioProject
+    
+    @bioProject.setter
+    def bioProject(self, bioProject):
+        self._bioProject = bioProject
+    
+    @property
+    def samples(self):
+        """
+        Getter and setter methods of the samples property.        
+        """
+        return self._samples
+    
+    @samples.setter
+    def samples(self, samples):
+        self._samples = samples
+    
+    def fullInfo(self):
+        strReturn = ""
+        strReturn += f"Accession number: {self.accessionNumber}"
+        strReturn += f"Title: {self.title}"
+        strReturn += f"GDS type: {self.gdstype}"        
+        strReturn += f"Taxonomy: {self.taxonomy}"
+        strReturn += f"Link: {self.link}"
+        strReturn += f"BioProject: {self.bioProject}"        
+        strReturn += f"Num. Samples: {self.nSamples}"
+        strReturn += f"Samples:\n--------"
+        
+        
+        
+        strReturn += f"Summary:\n--------\n{self.summary}"
+        return strReturn
+        
+    def __str__(self):
+        strReturn = ""
+        strReturn += f"Accession number: {self.accessionNumber}"
+        strReturn += f"Title: {self.title}"
+        strReturn += f"GDS type: {self.gdstype}"
+        strReturn += f"Taxonomy: {self.taxonomy}"
+        strReturn += f"Link: {self.link}"        
+        strReturn += f"Num. Samples: {self.nSamples}"        
+        return strReturn
+    
+    
 
-    def __init__(self, email=None):
-        if email:
-            self.EMAIL = email
+    
 
-    def search_geo(self, geo_id):
-        """Busca un ID de GEO en la base de datos y devuelve el ID relacionado"""
-        params = {
-            "db": "gds",
-            "term": geo_id,
-            "retmode": "json",
-            "email": self.EMAIL
-        }
+class NCBIClient:    
 
-        response = requests.get(self.BASE_URL + "esearch.fcgi", params=params)
+    def __init__(self, idDB, apiKey = None):
+        self._baseUrl = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+        self._apiKey = apiKey
+        self._idDB = idDB
+        
+    @property
+    def apiKey(self):
+        """
+        Getter and setter methods of the apiKey property.
+        """
+        return self._apiKey
+    
+    @apiKey.setter
+    def apiKey(self, apiKey):
+        self._apiKey = apiKey
+    
+    @property
+    def idDB(self):
+        """
+        Getter and setter methods of the idDB property.
+        """
+        return self._idDB
+    
+    @idDB.setter
+    def idDB(self, idDB):
+        self._idDB = idDB
+    
+    @property
+    def baseUrl(self):
+        """
+        Getter and setter methods of the baseUrl property.
+        """
+        return self._baseUrl        
 
-        if response.status_code == 200:
-            data = response.json()
-            if data['esearchresult']['idlist']:
-                return data['esearchresult']['idlist'][0]
-            else:
-                print("No se encontró información para el ID proporcionado.")
-                return None
+    def getIdsByGeo(self):
+        
+        if(self.apiKey is None):
+                    
+            params = {
+                "db": "gds",
+                "term": self.idDB,
+                "retmode": "json",
+                "retmax": 20000
+            }
+        
         else:
-            print(f"Error en la solicitud: {response.status_code}")
-            return None
+            
+            params = {
+                "db": "gds",
+                "term": self.idDB,
+                "retmode": "json",
+                "retmax": 20000,
+                "apiKey": self.apiKey
+            }
 
+        response = requests.get(self.baseUrl + "esearch.fcgi", params=params)
+
+        matrixReturn = None
+        if response.status_code == 200:
+            data = response.json()      
+            if data['esearchresult']['idlist']:
+                matrixReturn = data['esearchresult']['idlist']
+        
+        return matrixReturn
+
+    def getSummaryById(self, id):
+        
+        if(self.apiKey is None):
+                    
+            params = {
+                "db": "gds",
+                "id": id,
+                "retmode": "json",
+                "version": "2.0"
+            }
+        
+        else:
+            
+            params = {
+                "db": "gds",
+                "id": id,
+                "retmode": "json",
+                "apiKey": self.apiKey,
+                "version": "2.0"
+            }
+
+        response = requests.get(self._baseUrl + "esummary.fcgi", params=params)
+        data = response.json()
+
+        summaryGeo = None
+        if data is not None:
+                        
+            try:
+                accessionData = data['result'][id]['accession']
+            except Exception:
+                accessionData = None
+            
+            if accessionData is not None and accessionData == self.idDB:            
+                summaryGeo = data
+        
+        return summaryGeo
+
+    """
     def fetch_geo_data(self, geo_id):
-        """Descarga los datos completos de GEO para un ID específico"""
         geo_record_id = self.search_geo(geo_id)
 
         if geo_record_id:
@@ -169,7 +450,7 @@ class NCBIClient:
                 "email": self.EMAIL
             }
 
-            response = requests.get(self.BASE_URL + "efetch.fcgi", params=params)
+            response = requests.get(self.baseUrl + "efetch.fcgi", params=params)
 
             if response.status_code == 200:
                 with open(f"{geo_id}_data.xml", "w") as file:
@@ -184,7 +465,7 @@ class NCBIClient:
 
     
     def fetch_geo_data_by_accession(self, accession_number):
-        """Obtiene los datos de GEO utilizando el Accession Number (ej. GSE17674)"""
+
         params = {
             "db": "gds",  
             "term": accession_number,  
@@ -192,7 +473,7 @@ class NCBIClient:
             "email": self.EMAIL
         }
 
-        response = requests.get(self.BASE_URL + "esearch.fcgi", params=params)
+        response = requests.get(self.baseUrl + "esearch.fcgi", params=params)
 
         if response.status_code == 200:
             data = response.text
@@ -214,7 +495,7 @@ class NCBIClient:
             return None
     
     def fetch_geo_data_by_id(self, geo_record_id):
-        """Descarga los datos completos de GEO utilizando el ID"""
+    
         params = {
             "db": "gds",
             "id": geo_record_id,
@@ -222,7 +503,7 @@ class NCBIClient:
             "email": self.EMAIL
         }
 
-        response = requests.get(self.BASE_URL + "efetch.fcgi", params=params)
+        response = requests.get(self.baseUrl + "efetch.fcgi", params=params)
 
         if response.status_code == 200:
             with open(f"{geo_record_id}_data.xml", "w") as file:
@@ -235,12 +516,9 @@ class NCBIClient:
             return None
 
     def parse_geo_data(self, xml_data):
-        """Procesa los datos XML descargados y extrae información clave"""
         for docsum in xml_data.findall(".//DocSum"):
             title = docsum.find(".//Item[@Name='Title']").text
-            print(f"Título: {title}")
-
-
+            print(f"Título: {title}")"""
 
 class Validation:
     """

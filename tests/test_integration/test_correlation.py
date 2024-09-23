@@ -9,8 +9,8 @@ import numpy as np
 #dataset = bs.load(db="C:/Users/aurel/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # Windows
 #dataset = bs.load(db="/Users/aurelio/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # macOS
 
-dataset = bs.load(db="GSE17674", email="miemail@ejemplo.com")
-print(dataset)
+
+dataset = bs.load(db="GSE17674")
 
 # 1.2) Non-binary dataset load
 #dataset = bs.load(db="/home/principalpc/git-repositories/bioscience/datasets/synthetic3.txt", index_gene=0, naFilter=True, head = 0)
