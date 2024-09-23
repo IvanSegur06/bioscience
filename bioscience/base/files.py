@@ -77,6 +77,7 @@ def __loadSpecificFile(db, separator, skipr, naFilter, index_gene, index_lengths
 
 def __loadNcbiDb(idGeo, key = None):
     client = NCBIClient(idDB = idGeo, apiKey = key)
+    # 1) Database connection 
     print("Connecting NCBI database...")
     idsByGeo = client.getIdsByGeo()
     time.sleep(1)
@@ -85,14 +86,19 @@ def __loadNcbiDb(idGeo, key = None):
         return None
     
     print("Database connected.")
+    
+    # 2) Get info database
     print("Getting information from the ",idGeo," database...")
     
     summaryGeo = None
     iCount = 0
+    idValid = -1
     while (iCount < len(idsByGeo) and summaryGeo == None):
         summaryGeo = client.getSummaryById(idsByGeo[iCount])
         if summaryGeo == None:
             time.sleep(1)
+        else:
+            idValid = idsByGeo[iCount]
         iCount += 1
     
     if summaryGeo is None:
@@ -161,7 +167,7 @@ def __loadNcbiDb(idGeo, key = None):
              
         infoDataset = NCBIDataset(accessionNumber = sAccession, title = sTitle, summary = sSummary, gpl = sGPL, gse = sGSE, taxonomy = sTaxon, gdstype = sGdsType, suppfile = sSuppFile, nSamples = sNSamples, link = sFTPLink, bioProject = sBioProject, samples = aSamples)
         
-    
+    # 3) Download dataset
     #xml_data = client.fetch_geo_data(geo_id)
     
     #if xml_data:
