@@ -28,7 +28,7 @@ or also run setup.py file:
 .. note::
    Required dependencies:
     
-    * **Python**>=3.10
+    * **Python**>=3.11
     * **numpy**>=2.0.1
     * **pandas**>=2.2.2
     * **scikit-learn**>=1.5.1

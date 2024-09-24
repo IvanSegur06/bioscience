@@ -63,7 +63,7 @@ Alternatively, you could clone and run setup.py file:
 
 **Required Dependencies**\ :
 
-* **Python**>=3.10
+* **Python**>=3.11
 * **numpy**>=2.0.1
 * **pandas**>=2.2.2
 * **scikit-learn**>=1.5.1
