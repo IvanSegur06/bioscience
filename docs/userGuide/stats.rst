@@ -19,3 +19,17 @@ The following examples show how to use correlation methods such as Kendall, Spea
         resultsCorrelation = bs.nmi(dataset)
     
 To understand the meaning of each attribute you can access the :doc:`API reference <../api/api>`.
+
+Distance methods
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following examples show how to use distance methods such as Jaccard index, Manhattan, Euclidean, among others.
+    
+    .. code-block:: python
+      
+        import bioscience as bs
+        resultsCorrelation = bs.jaccard(dataset)
+        resultsCorrelation = bs.manhattan(dataset)
+        resultsCorrelation = bs.euclidean(dataset)
+    
+To understand the meaning of each attribute you can access the :doc:`API reference <../api/api>`.

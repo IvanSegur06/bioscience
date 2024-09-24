@@ -53,10 +53,107 @@ bioscience.preprocess
 bioscience.stats
 ---------------------
 
-.. automodule:: bioscience.stats.Correlation
+Correlation methods
+^^^^^^^^^^^^^^^^^^^
+
+.. automodule:: bioscience.stats.correlation.continuous.DistCorr
    :members:
    :undoc-members:
    :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.continuous.Median
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.continuous.Pearson
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.continuous.Quadrant
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.dichotomic.Log_odds
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.dichotomic.MCC
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.dichotomic.PBC
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.mixed.ARI
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.mixed.CC
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.mixed.MI
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.mixed.NMI
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.ordinal.HoeffdingsD
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.ordinal.Kendall
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.ordinal.Spearman
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Distance methods
+^^^^^^^^^^^^^^^^^^^
+
+.. automodule:: bioscience.stats.correlation.distance.Cosine
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.distance.Euclidean
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.distance.Jaccard
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.distance.Manhattan
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: bioscience.stats.correlation.distance.WeightedJaccard
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 bioscience.dataMining
 ---------------------
