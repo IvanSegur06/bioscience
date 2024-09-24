@@ -129,27 +129,27 @@ Correlation methods
 Distance methods
 ^^^^^^^^^^^^^^^^^^^
 
-.. automodule:: bioscience.stats.correlation.distance.Cosine
+.. automodule:: bioscience.stats.distance.Cosine
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: bioscience.stats.correlation.distance.Euclidean
+.. automodule:: bioscience.stats.distance.Euclidean
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: bioscience.stats.correlation.distance.Jaccard
+.. automodule:: bioscience.stats.distance.Jaccard
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: bioscience.stats.correlation.distance.Manhattan
+.. automodule:: bioscience.stats.distance.Manhattan
    :members:
    :undoc-members:
    :show-inheritance:
 
-.. automodule:: bioscience.stats.correlation.distance.WeightedJaccard
+.. automodule:: bioscience.stats.distance.WeightedJaccard
    :members:
    :undoc-members:
    :show-inheritance:
