@@ -27,7 +27,7 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
         elif methods == "parametric":
             methods = np.array(["pearson","mcc","cca","log_odds","pc","euclidean","mahalanobis","chi-squared"])
         elif methods == "non-parametric":
-            methods = np.array(["kendall","spearman","tabwilr","hoeffdingsD","distcorr","mcd","q","median","mi","nmi","mifs","biweight","ari","contingency","manhattan","cos","jaccard"])
+            methods = np.array(["kendall","spearman","tabwilr","hoeffdingsD","distcorr","mcd","q","median","mi","nmi","mifs","biweight","ari","cc","manhattan","cos","jaccard"])
         elif methods == "lineal":
             methods = np.array(["pearson","mcc","pc","cca","log_odds"])
         elif methods == "non-lineal":
@@ -35,7 +35,7 @@ def ensembleStats(dataset, methods, thresholds, deviceCount = 0, mode = 1, debug
         elif methods == "ranks":
             methods = np.array(["kendall","spearman","tabwilr","wrc"])
         elif methods == "dataMixed":
-            methods = np.array(["chi-squared","ari","contingency"])
+            methods = np.array(["chi-squared","ari","cc"])
         elif methods == "similarity":
             methods = np.array(["euclidean","manhattan","mahalanobis","cos","jaccard"])
         else:

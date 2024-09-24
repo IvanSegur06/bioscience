@@ -1,5 +1,6 @@
 # Correlation methods
 ARI = "Adjusted Rand Index (ARI)"
+CC = "Contingency Coefficient (CC)"
 COSINE = "Cosine Similarity"
 DISTCORR = "Distance Correlation (distcorr)"
 EUCLIDEAN = "Euclidean distance"
