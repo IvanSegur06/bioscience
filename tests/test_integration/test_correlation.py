@@ -9,7 +9,7 @@ import numpy as np
 #dataset = bs.load(db="C:/Users/aurel/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # Windows
 #dataset = bs.load(db="/Users/aurelio/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # macOS
 
-dataset = bs.load(db="GSE17674")
+dataset = bs.load(db="GSE17674", apiKey="3104e2e695fec277dfaa3ec4bff808385609")
 
 # 1.2) Non-binary dataset load
 #dataset = bs.load(db="/home/principalpc/git-repositories/bioscience/datasets/synthetic3.txt", index_gene=0, naFilter=True, head = 0)

@@ -3,6 +3,8 @@ import numpy as np
 import pandas as pd
 import os
 import time
+import ftplib
+from urllib.parse import urlparse
 
 from .models import *
 
@@ -75,7 +77,7 @@ def __loadSpecificFile(db, separator, skipr, naFilter, index_gene, index_lengths
     dataColumns = np.delete(dataColumns, np.arange(0, 1 + index_gene))         
     return Dataset(dataset.astype(np.double), geneNames=geneNames, columnsNames=dataColumns, lengths=lengths)
 
-def __loadNcbiDb(idGeo, key = None):
+def __loadNcbiDb(idGeo, key = None, fileType = "raw"):
     client = NCBIClient(idDB = idGeo, apiKey = key)
     # 1) Database connection 
     print("Connecting NCBI database...")
@@ -101,6 +103,7 @@ def __loadNcbiDb(idGeo, key = None):
             idValid = idsByGeo[iCount]
         iCount += 1
     
+    infoDataset = None
     if summaryGeo is None:
         print("ERROR: Information not obtained.")
     else:
@@ -168,11 +171,45 @@ def __loadNcbiDb(idGeo, key = None):
         infoDataset = NCBIDataset(accessionNumber = sAccession, title = sTitle, summary = sSummary, gpl = sGPL, gse = sGSE, taxonomy = sTaxon, gdstype = sGdsType, suppfile = sSuppFile, nSamples = sNSamples, link = sFTPLink, bioProject = sBioProject, samples = aSamples)
         
     # 3) Download dataset
+    if infoDataset is not None:
+        parsedUrl = urlparse(infoDataset.link)
+        ftpHostname = parsedUrl.hostname
+        ftpPath = parsedUrl.path
+        
+        ftp = ftplib.FTP(ftpHostname)
+        ftp.login()
+        ftp.cwd(ftpPath)
+        
+        # Files list
+        filesList = ftp.nlst()
+        for file in filesList:
+            print(file)
+        
+        ftp.quit()
+        
+        
     #xml_data = client.fetch_geo_data(geo_id)
     
     #if xml_data:
     #    client.parse_geo_data(xml_data)
 
+def __downloadGSE(infoDataset, fileType):
+    
+    parsedUrl = urlparse(infoDataset.link)
+    ftpHostname = parsedUrl.hostname
+    ftpPath = parsedUrl.path
+        
+    ftp = ftplib.FTP(ftpHostname)
+    ftp.login()
+    ftp.cwd(ftpPath)
+        
+    # Files list
+    filesList = ftp.nlst()
+    for file in filesList:
+        print(file)
+        
+    ftp.quit()
+    
 def saveResultsIndex(path, models):    
     """
     Save the results index (rows and columns index of the dataset) of applying a data mining technique.
