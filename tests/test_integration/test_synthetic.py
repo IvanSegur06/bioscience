@@ -4,7 +4,7 @@ import bioscience as bs
 # 1) Load dataset 
 ###################
 # Binary synthetic dataset with 4000 rows and 4000 columns
-dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/bibit/synthetic.csv", separator=",")
+dataset = bs.load(db="/home/principalpc/git-repositories/bioscience/datasets/bibit/synthetic.csv", separator=",")
 
 ####################
 # 3) Data mining 

@@ -4,7 +4,7 @@ import bioscience as bs
 # 1) Load dataset 
 ###################
 # RNA-Seq (GSE60450)
-dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/bibit/GSE60450.txt", index_lengths = 1, index_gene=0, naFilter=False, head = 0)
+dataset = bs.load(db="/home/principalpc/git-repositories/bioscience/datasets/bibit/GSE60450.txt", index_lengths = 1, index_gene=0, naFilter=False, head = 0)
 
 ###################
 # 2) Preprocessing

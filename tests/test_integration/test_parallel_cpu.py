@@ -4,13 +4,13 @@ import bioscience as bs
 # 1) Load dataset 
 ###################
 # 1.1) Binary dataset load
-#dataset = bs.load(path="/home/principalpc/git-repositories/benchmarkingBiBit/src/benchmarkingBiBit/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0)
+#dataset = bs.load(db="/home/principalpc/git-repositories/benchmarkingBiBit/src/benchmarkingBiBit/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0)
 
 # 1.2) Non-binary dataset load
-#dataset = bs.load(path="/home/principalpc/git-repositories/benchmarkingBiBit/src/benchmarkingBiBit/datasets/synthetic3.txt", index_gene=0, naFilter=True, head = 0)
+#dataset = bs.load(db="/home/principalpc/git-repositories/benchmarkingBiBit/src/benchmarkingBiBit/datasets/synthetic3.txt", index_gene=0, naFilter=True, head = 0)
 
 # 1.3.) RNA-Seq dataset load
-#dataset = load(path="/home/principalpc/git-repositories/benchmarkingBiBit/src/benchmarkingBiBit/datasets/rnaseq.txt", index_gene=0, index_lengths=1 ,naFilter=True, head = 0)
+#dataset = load(db="/home/principalpc/git-repositories/benchmarkingBiBit/src/benchmarkingBiBit/datasets/rnaseq.txt", index_gene=0, index_lengths=1 ,naFilter=True, head = 0)
 
 ###################
 # 2) Preprocessing

@@ -4,7 +4,7 @@ import bioscience as bs
 # 1) Load dataset 
 ###################
 # Microarray (GSE26910)
-dataset = bs.load(path="/home/principalpc/git-repositories/bioscience/datasets/bibit/GSE26910.csv", index_gene=0, naFilter=False, head = 0)
+dataset = bs.load(db="/home/principalpc/git-repositories/bioscience/datasets/bibit/GSE26910.csv", index_gene=0, naFilter=False, head = 0)
 
 ###################
 # 2) Preprocessing
