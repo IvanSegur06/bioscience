@@ -23,7 +23,7 @@ or also run setup.py file:
    git clone https://github.com/aureliolfdez/bioscience.git
    python3 setup.py clean
    python3 setup.py sdist
-   python3 -m pip install ./dist/bioscience-0.1.3.tar.gz
+   python3 -m pip install ./dist/bioscience-0.1.4.tar.gz
 
 .. note::
    Required dependencies:

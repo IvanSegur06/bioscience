@@ -6,6 +6,7 @@ import numpy as np
 ###################
 # 1.1) Binary dataset load
 #dataset = bs.load(db="/home/principalpc/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # Linux
+dataset = bs.load(db="/home/principalpc/git-repositories/bioscience/datasets/Spellman_v5.csv", separator=",", index_gene=0, naFilter=False, head = 0) # Linux
 #dataset = bs.load(db="C:/Users/aurel/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # Windows
 #dataset = bs.load(db="/Users/aurelio/git-repositories/bioscience/datasets/binaryTest3.txt", index_gene=0, naFilter=False, head = 0) # macOS
 #dataset = bs.load(db="GSE17674", apiKey="here-your-api-key")
@@ -44,12 +45,13 @@ print(resultsCorrelation.results)
 
 resultsCorrelation = bs.spearman(dataset)
 print(resultsCorrelation.results)
-#print(resultsCorrelation.geneInteractionsIndex)
+#print(resultsCorrelation.geneInteractionsIndex)"""
 
 resultsCorrelation = bs.nmi(dataset)
 print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)
 
+"""
 resultsCorrelation = bs.hoeffdingsD(dataset)
 print(resultsCorrelation.results)
 #print(resultsCorrelation.geneInteractionsIndex)
@@ -127,4 +129,3 @@ print(resultsCorrelation.results)
 ####################
 # BiBit algorithm
 #listModels = bs.bibit(dataset, cMnr=2, cMnc=2, mode=1, debug = True)
-
