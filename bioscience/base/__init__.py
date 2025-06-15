@@ -1,5 +1,6 @@
 from .files import (
     load,
+    loadNetwork,
     saveResultsIndex,
     saveResults,
     saveGenes,
@@ -9,10 +10,15 @@ from .files import (
 from .models import (
     NCBIClient,
     Dataset,
+    NetworkDataset,
     Validation,
     Bicluster,
     BiclusteringModel,
-    CorrelationModel
+    CorrelationModel,
+    Network,
+    NetworkModel,
+    Node,
+    Edge
 )
 
 from .constants import (
@@ -41,10 +47,15 @@ __all__ = [
     # Classes
     "NCBIClient",
     "Dataset",
+    "NetworkDataset",
     "Validation",
     "Bicluster",
     "BiclusteringModel",
     "CorrelationModel",
+    "Network",
+    "NetworkModel",
+    "Node",
+    "Edge",
     # Non-classes
     "load",
     "saveResultsIndex",

@@ -52,14 +52,13 @@ def load(db, apiKey = None, separator = "\t", skipr = 0, naFilter = False, index
                 return None
 
 # ! Solo se queda con los nombres del nodo A, habría que hacerlo para que se quede también con las del nodo B y diferenciar de alguna manera en el nombre de los genes cuál es cual
-def loadNetwork(path, separator, index_nodeA = -1, index_nodeB = -1, skipr = 0, head = None) -> pd.DataFrame:
+def loadNetwork(path, separator, index_nodeA = -1, index_nodeB = -1, index_weight = -1, skipr = 0, head = None) -> pd.DataFrame:
     dfPandas = pd.read_csv(path, sep=separator, skiprows = skipr, header = head)
 
     dataColumns = np.asarray(dfPandas.columnns)
     dataset = np.asarray(dfPandas)
-
-    geneNames = None
-    lengths = None
+    
+    importantInfo = np.array()
 
     if index_nodeA >= 0:
         index_lengths = index_lengths - 1
@@ -71,6 +70,12 @@ def loadNetwork(path, separator, index_nodeA = -1, index_nodeB = -1, skipr = 0, 
         geneNamesnodeB = dataset[:, index_nodeB]
         dataset = np.delete(dataset, index_nodeB, 1)
 
+    if index_weight >= 0:
+        edgeWeight = dataset[:, index_weight]
+        dataset = np.delete(dataset, index_weight, 1)
+
+    importantInfo = [geneNamesnodeA, geneNamesnodeB, edgeWeight]
+    
     
     dataColumns = np.delete(dataColumns, np.arange(0, 1 + index_nodeA))
     dataColumns = np.delete(dataColumns, np.arange(0, 1 + index_nodeB))

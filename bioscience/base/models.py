@@ -148,13 +148,46 @@ class NetworkDataset(Dataset):
     
     """    
     
-    def __init__(self, data, geneNamesNodeA = None, geneNamesNodeB = None, columnsNames = None):
+    def __init__(self, data, geneNamesNodeA = None, geneNamesNodeB = None, columnsNames = None, extraInfo = None):
         """
         Constructor method
         """
-        super().__init__(data, geneNamesNodeA, columnsNames)
+        super().__init__(data, columnsNames = columnsNames)
+        self._geneNamesNodeA = geneNamesNodeA
         self._geneNamesNodeB = geneNamesNodeB
+        self._extraInfo = extraInfo
     
+    @property
+    def geneNamesNodeA(self):
+        """
+        Getter and setter methods of the geneNamesNodeA property.
+        """
+        return self._geneNamesNodeA
+    @geneNamesNodeA.setter
+    def geneNamesNodeA(self, geneNamesNodeA):
+        self._geneNamesNodeA = geneNamesNodeA
+
+    @property
+    def geneNamesNodeB(self):
+        """
+        Getter and setter methods of the geneNamesNodeB property.
+        """
+        return self._geneNamesNodeB
+    
+    @geneNamesNodeB.setter
+    def geneNamesNodeB(self, geneNamesNodeB):
+        self._geneNamesNodeB = geneNamesNodeB
+        
+    @property
+    def extraInfo(self):
+        """
+        Getter and setter methods of the extraInfo property.
+        """
+        return self._extraInfo
+    
+    @extraInfo.setter
+    def extraInfo(self, extraInfo):
+        self._extraInfo = extraInfo
 
 class NCBIDataset:
     
