@@ -58,6 +58,7 @@ __all__ = [
     "Edge",
     # Non-classes
     "load",
+    "loadNetwork",
     "saveResultsIndex",
     "saveResults",
     "saveGenes",
