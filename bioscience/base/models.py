@@ -148,7 +148,7 @@ class NetworkDataset(Dataset):
     
     """    
     
-    def __init__(self, data, geneNamesNodeA = None, geneNamesNodeB = None, columnsNames = None, extraInfo = None):
+    def __init__(self, data, geneNamesNodeA = None, geneNamesNodeB = None, columnsNames = None, extraInfo = None, importantColumnsName = None):
         """
         Constructor method
         """
@@ -156,6 +156,7 @@ class NetworkDataset(Dataset):
         self._geneNamesNodeA = geneNamesNodeA
         self._geneNamesNodeB = geneNamesNodeB
         self._extraInfo = extraInfo
+        self._importantColumnsName = importantColumnsName
     
     @property
     def geneNamesNodeA(self):
@@ -188,6 +189,17 @@ class NetworkDataset(Dataset):
     @extraInfo.setter
     def extraInfo(self, extraInfo):
         self._extraInfo = extraInfo
+
+    @property
+    def importantColumnsName(self):
+        """
+        Getter and setter methods of the importantColumnsName property.
+        """
+        return self._importantColumnsName
+    
+    @importantColumnsName.setter
+    def importantColumnsName(self, importantColumnsName):
+        self._importantColumnsName = importantColumnsName
 
 class NCBIDataset:
     
