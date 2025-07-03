@@ -51,8 +51,36 @@ def load(db, apiKey = None, separator = "\t", skipr = 0, naFilter = False, index
             else:
                 return None
 
-# ! Solo se queda con los nombres del nodo A, habría que hacerlo para que se quede también con las del nodo B y diferenciar de alguna manera en el nombre de los genes cuál es cual
-def loadNetwork(path, separator, index_nodeA = -1, index_nodeB = -1, index_weight = -1, skipr = 0, head = None) -> pd.DataFrame:
+
+def loadNetwork(path, separator="\t", skipr = 0, index_nodeA = -1, index_nodeB = -1, index_weight = -1, head = None):
+    """
+    Load a network dataset from a file.
+    
+    :param path: The path where the file is stored
+    :type path: str
+        
+    :param separator: An attribute indicating how the columns of the file are separated.
+    :type separator: str,optional
+    
+    :param skipr: Number of rows the user wishes to omit from the file, defaults to 0.
+    :type skipr: int, optional
+    
+    :param index_nodeA: Column position where the node A gene names are stored in the dataset, defaults to -1 (deactivated).
+    :type index_nodeA: int, optional
+    
+    :param index_nodeB: Column position where the node B gene names are stored in the dataset, defaults to -1 (deactivated).
+    :type index_nodeB: int, optional
+    
+    :index_weight: Column position where the edge weight is stored in the dataset, defaults to -1 (deactivated).
+    :type index_weight: int, optional
+    
+    :param head: Row number(s) containing column labels and marking the start of the data (zero-indexed), defaults to None.
+    :type head: int, optional
+        
+    :return: A network dataset object from the reading of a file
+    :rtype: :class:`bioscience.base.models.NetworkDataset`
+    """
+    
     dfPandas = pd.read_csv(path, sep=separator, skiprows = skipr, header = head)
 
     dataColumns = np.asarray(dfPandas.columns)

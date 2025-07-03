@@ -131,20 +131,23 @@ class NetworkDataset(Dataset):
     """
     This is a concept class representing a network dataset.
     
-    :param original: Here the original dataset is stored in a NumPy array.
-    :type original: np.array
-        
     :param data: This attribute is used to store the dataset once it has undergone the transformations desired by the user.
     :type data: np.array
-         
+    
     :param geneNamesNodeA: Array with the name of the genes involved in the dataset. If the dataset does not have the name of the genes, it shall be replaced by a set of sequential numbers.
+    :type geneNames: np.array, optional
+    
+    :param geneNamesNodeB: Array with the name of the genes involved in the dataset. If the dataset does not have the name of the genes, it shall be replaced by a set of sequential numbers.
     :type geneNames: np.array, optional
     
     :param columnsNames: Array with the name of the columns involved in the dataset. If the dataset does not have the name of the columns, it shall be replaced by a set of sequential numbers.
     :type columnsNames: np.array, optional
     
-    :param cut: Cut-off parameter used in level binarisation.
-    :type cut: float, optional
+    :param extraInfo: Array that stores extra information about the network dataset.
+    :type extraInfo: np.array, optional
+    
+    :param importantColumnsName: Name of the column that contains the most relevant information of the dataset.
+    :type importantColumnsName: np.array, optional
     
     """    
     
