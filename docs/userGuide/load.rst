@@ -46,3 +46,14 @@ bioScience also allows loading of binary datasets because certain data mining al
         dataset = bs.load(path="datasets/binary.txt", index_gene=0, naFilter=False, head = 0)
 
 To understand the meaning of each attribute in this load function you can access the :doc:`API reference <../api/api>`.
+
+Load Gene co-expression network dataset 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+bioScience also allows loading of gene network datasets, which are typically used in systems biology to represent interactions between genes or proteins. These datasets can be loaded in a format that bioScience can process for further analysis.
+
+    .. code-block:: python
+
+        import bioscience as bs
+        dataset = bs.loadNetwork(path="datasets/network.csv", index_gene=0, naFilter=False, head = 0)
+
+To understand the meaning of each attribute in this load function you can access the :doc:`API reference <../api/api>`.
