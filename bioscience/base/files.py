@@ -51,6 +51,64 @@ def load(db, apiKey = None, separator = "\t", skipr = 0, naFilter = False, index
             else:
                 return None
 
+
+def loadNetwork(path, separator="\t", skipr = 0, index_nodeA = -1, index_nodeB = -1, index_weight = -1, head = None):
+    """
+    Load a network dataset from a file.
+    
+    :param path: The path where the file is stored
+    :type path: str
+        
+    :param separator: An attribute indicating how the columns of the file are separated.
+    :type separator: str,optional
+    
+    :param skipr: Number of rows the user wishes to omit from the file, defaults to 0.
+    :type skipr: int, optional
+    
+    :param index_nodeA: Column position where the node A gene names are stored in the dataset, defaults to -1 (deactivated).
+    :type index_nodeA: int, optional
+    
+    :param index_nodeB: Column position where the node B gene names are stored in the dataset, defaults to -1 (deactivated).
+    :type index_nodeB: int, optional
+    
+    :index_weight: Column position where the edge weight is stored in the dataset, defaults to -1 (deactivated).
+    :type index_weight: int, optional
+    
+    :param head: Row number(s) containing column labels and marking the start of the data (zero-indexed), defaults to None.
+    :type head: int, optional
+        
+    :return: A network dataset object from the reading of a file
+    :rtype: :class:`bioscience.base.models.NetworkDataset`
+    """
+    
+    dfPandas = pd.read_csv(path, sep=separator, skiprows = skipr, header = head)
+
+    dataColumns = np.asarray(dfPandas.columns)
+    dataset = np.asarray(dfPandas)
+    
+
+
+    if index_nodeA >= 0:
+        index_lengths = index_nodeA - 1
+        geneNamesnodeA = dataset[:, index_lengths]
+        dataset = np.delete(dataset, index_lengths, 1)
+    
+    if index_nodeB >= 0:
+        index_lengths = index_nodeB - 2
+        geneNamesnodeB = dataset[:, index_lengths]
+        dataset = np.delete(dataset, index_lengths, 1)
+
+    if index_weight >= 0:
+        index_lengths_weight = index_weight - 3
+        edgeWeight = dataset[:, index_lengths_weight]
+        dataset = np.delete(dataset, index_lengths_weight, 1)
+
+    importantInfo = [geneNamesnodeA, geneNamesnodeB, edgeWeight]
+    importantColumnsName = [dataColumns[index_nodeA - 1], dataColumns[index_nodeB - 1], dataColumns[index_weight - 1]]
+    
+    dataColumns = np.delete(dataColumns, [index_nodeA - 1, index_nodeB - 1, index_weight - 1])
+    return NetworkDataset(importantInfo, geneNamesNodeA=geneNamesnodeA, geneNamesNodeB=geneNamesnodeB, columnsNames=dataColumns, extraInfo=dataset, importantColumnsName=importantColumnsName)
+
 def __loadSpecificFile(db, separator, skipr, naFilter, index_gene, index_lengths, head) -> pd.DataFrame:
     if naFilter is True:
         dfPandas = pd.read_csv(db, sep=separator, skiprows = skipr, na_filter=naFilter, header = head).fillna(0)
@@ -67,15 +125,15 @@ def __loadSpecificFile(db, separator, skipr, naFilter, index_gene, index_lengths
     if index_gene >= 0:
         index_lengths = index_lengths -1 # Update gene lengths index due to remove the gene column of the dataset.
         geneNames = dataset[:,index_gene]
-        dataset = np.delete(dataset, index_gene, 1)                
+        dataset = np.delete(dataset, index_gene, 1)             
             
     # Get lengths from dataset
     if index_lengths >= 0:
         lengths = dataset[:,index_lengths]
-        dataset = np.delete(dataset, index_lengths, 1)                
+        dataset = np.delete(dataset, index_lengths, 1)            
             
     dataColumns = np.delete(dataColumns, np.arange(0, 1 + index_gene))         
-    return Dataset(dataset.astype(np.double), geneNames=geneNames, columnsNames=dataColumns, lengths=lengths)
+    return Dataset(dataset, geneNames=geneNames, columnsNames=dataColumns, lengths=lengths)
 
 def __loadNcbiDb(idGeo, key = None, fileType = "raw"):
     

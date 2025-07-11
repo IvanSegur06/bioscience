@@ -127,6 +127,83 @@ class Dataset:
     def __hash__(self):
         return 1
 
+class NetworkDataset(Dataset):
+    """
+    This is a concept class representing a network dataset.
+    
+    :param data: This attribute is used to store the dataset once it has undergone the transformations desired by the user.
+    :type data: np.array
+    
+    :param geneNamesNodeA: Array with the name of the genes involved in the dataset. If the dataset does not have the name of the genes, it shall be replaced by a set of sequential numbers.
+    :type geneNames: np.array, optional
+    
+    :param geneNamesNodeB: Array with the name of the genes involved in the dataset. If the dataset does not have the name of the genes, it shall be replaced by a set of sequential numbers.
+    :type geneNames: np.array, optional
+    
+    :param columnsNames: Array with the name of the columns involved in the dataset. If the dataset does not have the name of the columns, it shall be replaced by a set of sequential numbers.
+    :type columnsNames: np.array, optional
+    
+    :param extraInfo: Array that stores extra information about the network dataset.
+    :type extraInfo: np.array, optional
+    
+    :param importantColumnsName: Name of the column that contains the most relevant information of the dataset.
+    :type importantColumnsName: np.array, optional
+    
+    """    
+    
+    def __init__(self, data, geneNamesNodeA = None, geneNamesNodeB = None, columnsNames = None, extraInfo = None, importantColumnsName = None):
+        """
+        Constructor method
+        """
+        super().__init__(data, columnsNames = columnsNames)
+        self._geneNamesNodeA = geneNamesNodeA
+        self._geneNamesNodeB = geneNamesNodeB
+        self._extraInfo = extraInfo
+        self._importantColumnsName = importantColumnsName
+    
+    @property
+    def geneNamesNodeA(self):
+        """
+        Getter and setter methods of the geneNamesNodeA property.
+        """
+        return self._geneNamesNodeA
+    @geneNamesNodeA.setter
+    def geneNamesNodeA(self, geneNamesNodeA):
+        self._geneNamesNodeA = geneNamesNodeA
+
+    @property
+    def geneNamesNodeB(self):
+        """
+        Getter and setter methods of the geneNamesNodeB property.
+        """
+        return self._geneNamesNodeB
+    
+    @geneNamesNodeB.setter
+    def geneNamesNodeB(self, geneNamesNodeB):
+        self._geneNamesNodeB = geneNamesNodeB
+        
+    @property
+    def extraInfo(self):
+        """
+        Getter and setter methods of the extraInfo property.
+        """
+        return self._extraInfo
+    
+    @extraInfo.setter
+    def extraInfo(self, extraInfo):
+        self._extraInfo = extraInfo
+
+    @property
+    def importantColumnsName(self):
+        """
+        Getter and setter methods of the importantColumnsName property.
+        """
+        return self._importantColumnsName
+    
+    @importantColumnsName.setter
+    def importantColumnsName(self, importantColumnsName):
+        self._importantColumnsName = importantColumnsName
+
 class NCBIDataset:
     
     """
@@ -803,3 +880,294 @@ class CorrelationModel:
         self._geneInteractionsIndex = geneInteractionsIndex
     
     
+
+class Network:
+    """
+    This is a conceptual class representing a genetic network after applying a Genetic Network technique.
+    
+    :param node: List of the nodes of the network.
+    :type node: np.array
+
+    :param edge: List of the edges of the network.
+    :type edge: np.array
+
+    :param validations: A set of instances from :class:`bioscience.base.models.Validation`.
+    :type validations: np.array, optional
+    
+    :param directed: Represents if a network is a directed graph or not.
+    :type directed: boolean, optional
+
+    """
+    def __init__(self, node, edge, validations=None, directed=None):
+        """
+        Constructor method
+        """
+        self._nodes = node
+        self._edges = edge
+        self._sizeNodes = len(self._nodes)
+        self._sizeEdges = len(self._edges)
+        self._validations = validations
+        self._directed = directed
+    
+    @property
+    def nodes(self):
+        """
+        Getter and setter methods of the nodes property
+        """
+        return self._nodes
+
+    @nodes.setter
+    def nodes(self, nodes):
+        self._nodes = nodes
+
+    @property
+    def edges(self):
+        """
+        Getter and setter methods of the edges property
+        """
+        return self._edges
+
+    @edges.setter
+    def nodes(self, edges):
+        self._edges = edges
+
+    @property
+    def sizeNodes(self):
+        return self._sizeNodes
+
+    @property
+    def sizeEdges(self):
+        return self._sizeEdges
+
+    @property
+    def validations(self):
+        """
+        Getter and setter methods of the validation property
+        """
+        return self._validations
+    
+    @validations.setter
+    def validations(self, validations):
+        self._validations = validations
+
+    @property
+    def directed(self):
+        return self._directed
+
+    @directed.setter
+    def directed(self, directed):
+        self._directed = directed
+    
+    def shared_edges_count(self, gene):
+        """
+        Function to count the number of edges shared by a given gene (node).
+        
+        :param gene: The gene (node) to check for shared edges.
+        :type gene: str or int
+        :return: Number of edges shared by the given gene.
+        :rtype: int
+        """
+        count = 0
+        for edge in self.edges:
+            if edge.nodeA == gene or edge.nodeB == gene:
+                count += 1
+        return count
+
+class NetworkModel:
+
+    """
+    This is a conceptual class representing a set of networks generated after applying a Network technique.
+    
+    :param results: Data structure (set) that stores all networks after running a Network algorithm.
+    :type results: set(:class:`bioscience.base.models.Network`), optional
+        
+    :param executionTime: Time taken to execute the Network method.
+    :type executionTime: float, optional
+    
+    """
+
+    def __init__(self, results = None):     
+        """
+        Constructor method
+        """   
+        if results is not None and all(isinstance(net, Network) for net in results):
+            self._results = results
+        else:
+            self._results = set()
+        
+        self._executionTime = 0
+        self._decrease = 0
+    
+    @property
+    def executionTime(self):
+        """
+        Getter and setter methods of the executionTime property.
+        """
+        return self._executionTime
+    
+    @executionTime.setter
+    def executionTime(self, executionTime):
+        self._executionTime = executionTime
+    
+    @property
+    def results(self):
+        """
+        Getter and setter methods of the results property.
+        """
+        return self._results
+
+    @results.setter
+    def results(self, results):
+        self._results = results
+
+    def sort(self):
+        self._results = sorted(self._results, key=lambda net: (len(net.sizeNodes), len(net.sizeEdges)))
+
+    def __str__(self):
+        return '\n'.join(str(net) for net in self.results)
+     
+class Node:
+
+    """
+    This is a conceptual class represented a node of a genetic network.
+
+    :param info: Aditional information of the node.
+    :type info: np.array
+
+    :param id: Id of the gene.
+    :type id: integer, optional.
+
+    :param name: Name of the gene.
+    :type name: string, optional.
+
+    """
+    
+    def __init__(self, info, id = None, name = None):
+        """
+        Constructor Method
+        """
+        self._id = id
+        self._name = name
+        self._info = info
+    
+    @property
+    def id(self):
+        """
+        Getter and setter methods of the id property.
+        """
+        return self._id
+
+    @id.setter
+    def id(self, id):
+        self._id = id
+    
+    @property
+    def name(self):
+        """
+        Getter and setter methods of the name property.
+        """
+        return self._name
+    
+    @name.setter
+    def name(self, name):
+        self._name = name
+    
+    @property
+    def info(self):
+        """
+        Getter and setter methods of the extraCharacteristics property.
+        """
+        return self._info
+    
+    @info.setter
+    def extraCharacteristics(self, info):
+        self._info = info
+
+class Edge:
+
+    #     :type results: set(:class:`bioscience.base.models.Network`), optional
+
+    """
+    This is a conceptual class represented a edge of a genetic network.
+
+    :param nodeA: Beginning node of the edge
+    :type nodeA: :class:`bioscience.base.models.Node`
+    
+    :param nodeB: End node of the edge
+    :type nodeB: :class:`bioscience.base.models.Node`
+
+    :param weight: Weight of the edge.
+    :type weight: float
+    
+    :param weightRelatedValues: Values related to the weight such as Spearman or Kendall
+    :param weightRelatedValues: np.array
+
+    :param info: Aditional information of the edge.
+    :type info: np.array
+
+    """
+
+    def __init__(self, nodeA, nodeB, weight, weightRelatedValues, info):
+        """
+        Constructor method
+        """
+        self._nodeA = nodeA
+        self._nodeB = nodeB
+        self._weight = weight
+        self._weightRelatedValues = weightRelatedValues
+        self._info = info
+    
+    @property
+    def nodeA(self):
+        """
+        Getter and setter methods of the nodeA property.
+        """
+        return self._nodeA
+
+    @nodeA.setter
+    def nodeA(self, nodeA):
+        self._nodeA = nodeA
+
+    @property
+    def nodeB(self):
+        """
+        Getter and setter methods of the nodeB property.
+        """
+        return self._nodeB
+
+    @nodeB.setter
+    def nodeB(self, nodeB):
+        self._nodeB = nodeB
+
+    @property
+    def weight(self):
+        """
+        Getter and setter methods of the weight property.
+        """
+        return self._weight
+
+    @weight.setter
+    def weight(self, weight):
+        self._weight = weight
+    
+    @property
+    def weightRelatedValues(self):
+        """
+        Getter and setter methods of the weightRelatedValues
+        """
+        return self._weightRelatedValues
+
+    @weightRelatedValues.setter
+    def weightRelatedValues(self, weightRelatedValues):
+        self._weightRelatedValues = weightRelatedValues
+    
+    @property
+    def info(self):
+        """
+        Getter and setter methods of the extraCharacteristics property.
+        """
+        return self._info
+    
+    @info.setter
+    def info(self, info):
+        self._info = info
