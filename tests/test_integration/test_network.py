@@ -3,14 +3,13 @@ import bioscience as bs
 ###################
 # 1) Load dataset 
 ###################
-# dataset = bs.loadNetwork(path="C:/Users/pablo/OneDrive/Escritorio/Bioinformática/bioscience/datasets/network1.csv", separator = ",", index_nodeA = 1, index_nodeB = 3, index_weight = 9, skipr = 0, head = 0)
-
+dataset = bs.loadNetwork(db="/Users/aurelio/git-repositories/bioscience/datasets/network1.csv", index_nodeA = 1, index_nodeB = 3, index_weight = 9, separator = ",", skipr = 0, head = 0)
 
 ###################
 # 2) Checking that everything is saved correctly
 ###################
-# print("Dataset data column 0:")
-# print(dataset.data[0])
+#print("Dataset data column 0:")
+#print(dataset.data[0])
 
 # print("Dataset data column 1:")
 # print(dataset.data[1])
@@ -35,3 +34,6 @@ import bioscience as bs
 
 # print("Gene Names Node B")
 # print(dataset.geneNamesNodeB[0])
+
+
+print(dataset.extraInfo)
