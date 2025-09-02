@@ -4,7 +4,7 @@ import bioscience as bs
 # 1) Load dataset 
 ###################
 # Usa tu ruta real en Windows:
-DATASET = r"C:\Users\ivan0\Documents\TFG\bioscience\datasets\Spellman_v5.csv"
+DATASET = r"C:\Users\ivan0\Documents\Libreria\bioscience\datasets\Spellman_v5.csv"
 
 dataset = bs.load(
     db=DATASET,
@@ -25,7 +25,9 @@ dataset = bs.load(
 #listModels = bs.processCobinet(dataset, mode=1, deviceCount=1, debug=True)
 
 
+
+
 cobinet = bs.processCobinetBC(dataset, mode=1, deviceCount=1, debug=True)
 
 
-print(cobinet)
+#print(cobinet)
