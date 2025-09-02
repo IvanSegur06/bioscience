@@ -1,4 +1,5 @@
 from bioscience.base import *
+import bioscience as bs
 import numpy as np 
 import pandas as pd
 from itertools import combinations
@@ -92,26 +93,11 @@ def __cobinetSequential(dataset,debug=False, n_trials=20, tolerancyThreshold=10,
     :return: None
     :rtype: None
     """
-    if isinstance(dataset, Dataset):
-        data = np.asarray(dataset.data, dtype=float)
-
-        # bioscience names
-        genes = np.asarray(dataset.geneNames) if getattr(dataset, "geneNames", None) is not None \
-                else np.array([f"G{i}" for i in range(data.shape[0])])
-
-        conditions = np.asarray(dataset.columnsNames) if getattr(dataset, "columnsNames", None) is not None \
-                     else np.array([f"S{j}" for j in range(data.shape[1])])
-
-    elif isinstance(dataset, str):
-        # keep old behavior for quick testing with a CSV path
-        df = pd.read_csv(dataset)
-        genes = df.iloc[:, 0].to_numpy()
-        conditions = np.array(list(df.columns)[1:])
-        data = df.iloc[:, 1:].to_numpy(dtype=float)
-
-    else:
-        raise TypeError("dataset must be a bioscience Dataset or a CSV path (str)")
-
+        
+        
+    data = np.asarray(dataset.data, dtype=float)
+    genes = np.asarray(dataset.geneNames)
+    conditions = np.asarray(dataset.columnsNames)
     rows, cols = data.shape
     tolerancyThreshold = tolerancyThreshold / 100.0
     resultsPairs = set()
@@ -142,7 +128,7 @@ def __cobinetSequential(dataset,debug=False, n_trials=20, tolerancyThreshold=10,
     
     
     
-    print(data)
+    
 
     oModel = BiclusteringModel()
     return oModel
@@ -345,7 +331,7 @@ def _autoHPOPhase(data, genes, conditions, rows, cols, tolerancyThreshold, geneM
             delayed(_evaluate_bicluster)(
                 data, rows_bic, cols_bic,
                 pearson_thr, spearman_thr, nmi_thr,
-                ensembleCorrelation
+                bs.ensembleCorrelation
             )
             for rows_bic, cols_bic in zip(biclustersRows, biclustersCols)
         )
@@ -420,7 +406,7 @@ def _evaluate_bicluster(data, rows_bic, cols_bic, pearson_thr, spearman_thr, nmi
         for j in range(i + 1, len(rows_bic)):
             r1 = data[rows_bic[i]][cols_bic]
             r2 = data[rows_bic[j]][cols_bic]
-            validCorr, corr = ensembleCorrelation(r1, r2, pearson_thr, spearman_thr, nmi_thr)
+            validCorr, corr = bs.ensembleCorrelation(r1, r2, pearson_thr, spearman_thr, nmi_thr)
             if validCorr:
                 row_corrs.append(corr)
     avg_row_corr = np.mean(row_corrs) if row_corrs else np.nan
@@ -431,7 +417,7 @@ def _evaluate_bicluster(data, rows_bic, cols_bic, pearson_thr, spearman_thr, nmi
         for j in range(i + 1, len(cols_bic)):
             c1 = data[rows_bic, cols_bic[i]]
             c2 = data[rows_bic, cols_bic[j]]
-            validCorr, corr = ensembleCorrelation(c1, c2, pearson_thr, spearman_thr, nmi_thr)
+            validCorr, corr = bs.ensembleCorrelation(c1, c2, pearson_thr, spearman_thr, nmi_thr)
             if validCorr:
                 col_corrs.append(corr)
     avg_col_corr = np.mean(col_corrs) if col_corrs else np.nan
@@ -441,7 +427,7 @@ def _evaluate_bicluster(data, rows_bic, cols_bic, pearson_thr, spearman_thr, nmi
     profile_corrs = []
     for i in range(submatrix.shape[0]):
         row_data = submatrix[i]
-        validCorr, corr = ensembleCorrelation(row_data, profile, pearson_thr, spearman_thr, nmi_thr)
+        validCorr, corr = bs.ensembleCorrelation(row_data, profile, pearson_thr, spearman_thr, nmi_thr)
         if validCorr:
             profile_corrs.append(corr)
     avg_profile_coherence = np.mean(profile_corrs) if profile_corrs else np.nan
@@ -606,7 +592,7 @@ def _calculateEnsembleCorrelations(data, rows, cols, pearsonThreshold, spearmanT
         vector2 = data[r2, :]
         
         # Compute the ensemble correlation for the two gene expression profiles
-        validCorr, corr_val = ensembleCorrelation(
+        validCorr, corr_val = bs.ensembleCorrelation(
             vector1, vector2,
             pearsonThreshold, spearmanThreshold, nmiThreshold
         )
@@ -707,7 +693,7 @@ def _calculateOptimalCorrelations(patternColumns, correlations, data, rows, cols
         selectedColumns = np.arange(cols)
         
         # Compute correlation using all columns before any removal
-        validCorr, corrFull = ensembleCorrelation(vector1, vector2, pearsonThreshold, spearmanThreshold, nmiThreshold)
+        validCorr, corrFull = bs.ensembleCorrelation(vector1, vector2, pearsonThreshold, spearmanThreshold, nmiThreshold)
 
         for k in range(1, max_removals + 1): # k = number of columns to remove in each iteration
             impacts = []
@@ -719,7 +705,7 @@ def _calculateOptimalCorrelations(patternColumns, correlations, data, rows, cols
                     continue # Skip if removal violates colMin constraint
 
                 # Correlation after removing this column
-                _, corr_temp = ensembleCorrelation(
+                _, corr_temp = bs.ensembleCorrelation(
                     vector1[temp_cols], vector2[temp_cols],
                     pearsonThreshold, spearmanThreshold, nmiThreshold
                 )
@@ -736,7 +722,7 @@ def _calculateOptimalCorrelations(patternColumns, correlations, data, rows, cols
             for subset_remove in combinations(candidates, k):
                 # Columns to keep after removal
                 subset_keep = [c for c in selectedColumns if c not in subset_remove]
-                valid, corr_actual = ensembleCorrelation(
+                valid, corr_actual = bs.ensembleCorrelation(
                     vector1[subset_keep], vector2[subset_keep],
                     pearsonThreshold, spearmanThreshold, nmiThreshold
                 )
@@ -931,11 +917,11 @@ def _getBiclusters(data, patternColumns, correlations, rows, cols, tolerancyThre
 
             vec_i = data[iRow, biclusterCols]
 
-            validCorr1, corr1 = ensembleCorrelation(
+            validCorr1, corr1 = bs.ensembleCorrelation(
                 vec_r1, vec_i,
                 pearsonThreshold, spearmanThreshold, nmiThreshold
             )                    
-            validCorr2, corr2 = ensembleCorrelation(
+            validCorr2, corr2 = bs.ensembleCorrelation(
                 vec_r2, vec_i,
                 pearsonThreshold, spearmanThreshold, nmiThreshold
             )                    
@@ -1184,7 +1170,7 @@ def _rowCompetition(candidateRows, selectedCols, data, patternCorrelation, pears
         j = 0
         while j < len(candidateRows) and discarded is False:            
             if i != j and candidateRows[j] not in forbiddenRows:                                
-                validCorr, correlation_val = ensembleCorrelation(
+                validCorr, correlation_val = bs.ensembleCorrelation(
                     data[currentRow][selectedCols],
                     data[candidateRows[j]][selectedCols],
                     pearsonThreshold, spearmanThreshold, nmiThreshold
@@ -1252,7 +1238,7 @@ def _autoCalculateCorrelation(biclusterRows, biclusterCols, data, pearsonThresho
         values2 = np.array(data[row2])[biclusterCols]
 
         # Calculate Pearson/Spearman/NMI correlation between both rows
-        validCorr, correlation_val = ensembleCorrelation(values1, values2, pearsonThreshold, spearmanThreshold, nmiThreshold)
+        validCorr, correlation_val = bs.ensembleCorrelation(values1, values2, pearsonThreshold, spearmanThreshold, nmiThreshold)
         
         if validCorr:
             correlations.append(correlation_val)
@@ -1984,128 +1970,3 @@ def _saveBiclusters(genes, condiciones, biclustersFilas, biclustersColumnas, bic
         output_path = os.path.join(genes_dir, f"gene_bicluster_{i+1}.csv")
         pd.DataFrame(gene_names).to_csv(output_path, index=False, header=False)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def ensembleCorrelation(vector1, vector2, pearsonThreshold, spearmanThreshold, nmiThreshold): 
-    
-    pearson_val = pearson(vector1, vector2)   # siempre devuelve valor real
-    spearman_val = spearman(vector1, vector2)
-    nmi_val = nmi(vector1, vector2)
-    
-    metrics = [pearson_val, spearman_val, nmi_val]
-    metrics = [np.nan if m is None else m for m in metrics]
-    
-    passed = 0
-    if not np.isnan(metrics[0]) and metrics[0] >= pearsonThreshold:
-        passed += 1
-    if not np.isnan(metrics[1]) and metrics[1] >= spearmanThreshold:
-        passed += 1
-    if not np.isnan(metrics[2]) and metrics[2] >= nmiThreshold:
-        passed += 1
-    
-    valid = passed >= int(np.ceil(len([m for m in metrics if not np.isnan(m)]) / 2))
-
-    return valid, np.nanmean(metrics)
-
-
-
-def pearson(x, y, debug = False):
-    
-    n = len(x)    
-    if n != len(y):
-        return None
-
-    mean_x = sum(x) / n
-    mean_y = sum(y) / n
-
-    diff_x = [xi - mean_x for xi in x]
-    diff_y = [yi - mean_y for yi in y]
-
-    numerator = sum(diff_x[i] * diff_y[i] for i in range(n))
-
-    std_x = (sum(dx ** 2 for dx in diff_x) ** 0.5)
-    std_y = (sum(dy ** 2 for dy in diff_y) ** 0.5)
-
-    pearson = numerator / (std_x * std_y) if std_x * std_y != 0 else 0
-    
-    if pearson != None:
-        pearson = abs(pearson)
-
-    return pearson
-
-
-def spearman(x, y, debug=False):
-    
-    def get_ranks(data):
-            
-        sorted_data = sorted(enumerate(data), key=lambda item: item[1])        
-        ranks = [0] * len(data)
-        
-        for rank, (index, _) in enumerate(sorted_data, start=1):
-            ranks[index] = rank
-        
-        return ranks
-
-    rank_x = get_ranks(x)
-    rank_y = get_ranks(y)
-    
-    d_squared = [(rank_x[i] - rank_y[i]) ** 2 for i in range(len(x))]
-
-    n = len(x)
-    if n * (n**2 - 1) == 0:
-        spearman_coefficient = 0.0
-    else:
-        spearman_coefficient = 1 - (6 * sum(d_squared)) / (n * (n**2 - 1))
-    
-    if spearman != None:
-        spearman_coefficient = abs(spearman_coefficient)
-    
-    return spearman_coefficient
-
-
-def discretize_vector(vec, precision=5):
-    return np.round(vec, decimals=precision)
-
-def nmi(x, y, debug=False):
-    x = discretize_vector(x)
-    y = discretize_vector(y)
-
-    n = len(x)
-    assert n == len(y)
-
-    x_labels = np.unique(x)
-    y_labels = np.unique(y)
-
-    # Build joint distribution table
-    px = np.array([np.sum(x == label) for label in x_labels]) / n
-    py = np.array([np.sum(y == label) for label in y_labels]) / n
-    pxy = np.zeros((len(x_labels), len(y_labels)))
-
-    for i, lx in enumerate(x_labels):
-        for j, ly in enumerate(y_labels):
-            pxy[i, j] = np.sum((x == lx) & (y == ly)) / n
-
-    # Compute entropies
-    Hx = -np.sum(px * np.log2(px + 1e-10))
-    Hy = -np.sum(py * np.log2(py + 1e-10))
-    MI = np.sum(pxy * np.log2((pxy + 1e-10) / ((px[:, None] * py[None, :]) + 1e-10)))
-
-    # Normalize
-    NMI = 2 * MI / (Hx + Hy) if (Hx + Hy) > 0 else 0
-    
-    if NMI != None:
-        NMI = abs(NMI)
-        
-    return NMI
